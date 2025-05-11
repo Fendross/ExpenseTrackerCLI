@@ -3,11 +3,19 @@ package core.expense;
 import core.cashflowstatement.CashFlowStatement;
 public class Expense implements CashFlowStatement {
     // TODO implement constructor and methods.
-    String typeOfStatement = "Expense";
     public Expense() {}
 
+    @Override
+    public int addStatement(double amount) {
+        return addExpense(amount);
+    }
+
+    public int addExpense (double amount) {
+        return 0;
+    }
+
     public String getTypeOfStatement() {
-        return typeOfStatement;
+        return "Expense";
     }
 
     public void printExpense() {

@@ -1,6 +1,6 @@
 package core.cashflowstatement;
 
 public interface CashFlowStatement {
-    String typeOfStatement = new String();
-    public String getTypeOfStatement();
+    int addStatement(double amount);
+    String getTypeOfStatement();
 }

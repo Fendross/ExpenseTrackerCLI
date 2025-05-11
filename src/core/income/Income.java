@@ -3,11 +3,19 @@ package core.income;
 import core.cashflowstatement.CashFlowStatement;
 public class Income implements CashFlowStatement {
     // TODO implement constructor and methods.
-    String typeOfStatement = "Income";
     public Income() {}
 
+    @Override
+    public int addStatement(double amount) {
+        return addIncome(amount);
+    }
+
+    public int addIncome (double amount) {
+        return 0;
+    }
+
     public String getTypeOfStatement() {
-        return typeOfStatement;
+        return "Income";
     }
 
     public void printIncome() {
