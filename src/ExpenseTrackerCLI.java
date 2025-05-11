@@ -33,16 +33,15 @@ public class ExpenseTrackerCLI {
             ArrayList<String> commands = new ArrayList<String>(List.of(task.trim().split(" ")));
 
             String leadCommand = commands.get(0);
-            if (leadCommand.equals("help")) {
-                ReplUtils.handleHelpCommand();
-                wasLastCommandHelp = true;
-                ReplUtils.separateBlocks();
-                continue;
-            }
-
-            if (leadCommand.equals("exit")) {
-                scanner.close();
-                System.exit(0);
+            switch (leadCommand) {
+                case "help":
+                    ReplUtils.handleHelpCommand();
+                    wasLastCommandHelp = true;
+                    ReplUtils.separateBlocks();
+                    continue;
+                case "exit":
+                    scanner.close();
+                    System.exit(0);
             }
         }
     }
