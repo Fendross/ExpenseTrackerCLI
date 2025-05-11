@@ -13,8 +13,6 @@ import exceptions.ViewException;
 import utils.GenericUtils;
 import utils.ReplUtils;
 
-import javax.swing.text.View;
-
 public class ExpenseTrackerCLI {
     public static void main(String[] args) {
         // Handle wrong num of arguments.
@@ -37,7 +35,7 @@ public class ExpenseTrackerCLI {
             ArrayList<String> commands = new ArrayList<>(List.of(task.trim().split(" ")));
 
             String leadCommand = commands.get(0);
-            switch (leadCommand) {
+            switch (leadCommand.toLowerCase()) {
                 case "exit":
                     scanner.close();
                     System.exit(0);
