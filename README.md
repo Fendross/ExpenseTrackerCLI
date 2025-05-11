@@ -17,4 +17,4 @@ Refer to the following functionalities:
 
 # References
 
-[Build a simple Expense Tracker CLI](https://roadmap.sh/projects/expense-tracker)
+[Build a simple core.expense.Expense Tracker CLI](https://roadmap.sh/projects/expense-tracker)

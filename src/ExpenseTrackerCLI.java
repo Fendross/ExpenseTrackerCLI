@@ -1,3 +1,6 @@
+import core.expense.Expense;
+import core.income.Income;
+
 public class ExpenseTrackerCLI {
     public static void main(String[] args) {
         int expectedArgs = 0;
@@ -7,8 +10,10 @@ public class ExpenseTrackerCLI {
         }
 
         Expense expense = new Expense();
+        Income income = new Income();
 
-        expense.printExpense("Hello from Expense.");
+        expense.printExpense();
+        income.printIncome();
         // TODO build the CLI workflow.
     }
 }
