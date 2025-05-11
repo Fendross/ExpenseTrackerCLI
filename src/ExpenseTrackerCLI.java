@@ -11,9 +11,13 @@ import exceptions.AddException;
 import exceptions.DeleteException;
 import exceptions.ViewException;
 import utils.GenericUtils;
+import utils.GenericUtils.TypeOfStatement;
 import utils.ReplUtils;
 
 public class ExpenseTrackerCLI {
+
+    static ExpenseManager expenseManager = new ExpenseManager();
+    static IncomeManager incomeManager = new IncomeManager();
     public static void main(String[] args) {
         // Handle wrong num of arguments.
         int expectedArgs = 0;
@@ -22,12 +26,13 @@ public class ExpenseTrackerCLI {
             System.exit(1);
         }
 
+        // Init variables.
+        TypeOfStatement typeOfStatement;
         boolean wasLastCommandHelp = false;
 
         ReplUtils.welcomeUser();
         ReplUtils.separateBlocks();
         while (true) {
-            // TODO build the CLI workflow.
             Scanner scanner = new Scanner(System.in);
             wasLastCommandHelp = ReplUtils.askForInput(wasLastCommandHelp);
 
@@ -45,7 +50,13 @@ public class ExpenseTrackerCLI {
                     continue;
                 case "add":
                     try {
-                        handleAddCommand();
+                        typeOfStatement = GenericUtils.fetchTypeOfStatement(commands);
+                        if (typeOfStatement == TypeOfStatement.UNRECOGNIZED) {
+                            ReplUtils.handleWrongTypeOfStatement();
+                            continue;
+                        }
+
+                        handleAddCommand(commands, typeOfStatement);
                         wasLastCommandHelp = false;
                     } catch (AddException ex) {
                         System.out.println("Error while inserting: " + ex.getMessage());
@@ -53,7 +64,7 @@ public class ExpenseTrackerCLI {
                     break;
                 case "delete":
                     try {
-                        handleDeleteCommand();
+                        handleDeleteCommand(commands);
                         wasLastCommandHelp = false;
                     } catch (DeleteException ex) {
                         System.out.println("Error while inserting: " + ex.getMessage());
@@ -67,16 +78,23 @@ public class ExpenseTrackerCLI {
                         System.out.println("Error while inserting: " + ex.getMessage());
                     }
                     break;
+                default:
+                    System.out.println("Unrecognized command. Please try again.");
             }
         }
     }
 
-    public static void handleAddCommand() throws AddException {
+    public static void handleAddCommand(ArrayList<String> commands, TypeOfStatement typeOfStatement) throws AddException {
+        if (typeOfStatement == TypeOfStatement.EXPENSE) {
+            expenseManager.addExpense();
+        } else {
+            incomeManager.addIncome();
+        }
         System.out.println("Handled add command.");
         ReplUtils.separateBlocks();
     }
 
-    public static void handleDeleteCommand() throws DeleteException {
+    public static void handleDeleteCommand(ArrayList<String> commands) throws DeleteException {
         System.out.println("Handled delete command.");
         ReplUtils.separateBlocks();
     }
