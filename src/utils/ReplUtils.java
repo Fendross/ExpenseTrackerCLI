@@ -25,6 +25,8 @@ public class ReplUtils {
 
         System.out.println("To view all (especially to retrieve an id), use this input as an example:");
         System.out.println("view <id (optional, if missing will print all)>");
+
+        separateBlocks();
     }
 
     public static void separateBlocks() {
