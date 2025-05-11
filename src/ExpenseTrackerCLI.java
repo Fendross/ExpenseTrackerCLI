@@ -5,7 +5,10 @@ public class ExpenseTrackerCLI {
             System.out.println("Too many arguments. Expected arguments: " + expectedArgs);
             System.exit(1);
         }
-        System.out.println("Hello world!");
+
+        Expense expense = new Expense();
+
+        expense.printExpense("Hello from Expense.");
         // TODO build the CLI workflow.
     }
 }
