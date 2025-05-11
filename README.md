@@ -17,4 +17,5 @@ Refer to the following functionalities:
 
 # References
 
-[Build a simple core.expense.Expense Tracker CLI](https://roadmap.sh/projects/expense-tracker)
+- [Cash Flow Statement definition](https://en.wikipedia.org/wiki/Cash_flow_statement)
+- [Build a simple core.expense.Expense Tracker CLI](https://roadmap.sh/projects/expense-tracker)
