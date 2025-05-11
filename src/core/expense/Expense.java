@@ -1,12 +1,11 @@
 package core.expense;
 
 import core.cashflowstatement.CashFlowStatement;
+import utils.GenericUtils.TypeOfStatement;
 
 import java.util.Date;
 
 public class Expense implements CashFlowStatement {
-    // TODO implement constructor and methods.
-
     // Class Fields.
     double amount;
     Date dateOfStatement;
@@ -17,8 +16,8 @@ public class Expense implements CashFlowStatement {
     public Expense() {}
 
     @Override
-    public String getTypeOfStatement() {
-        return "Expense";
+    public TypeOfStatement getTypeOfStatement() {
+        return TypeOfStatement.EXPENSE;
     }
 
     // Amount.

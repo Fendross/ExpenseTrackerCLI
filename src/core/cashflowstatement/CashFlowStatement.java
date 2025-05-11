@@ -2,6 +2,8 @@ package core.cashflowstatement;
 
 import java.util.Date;
 
+import utils.GenericUtils.TypeOfStatement;
+
 public interface CashFlowStatement {
     /**
      * A CashFlowStatement consists of:
@@ -14,7 +16,7 @@ public interface CashFlowStatement {
      */
 
     // Getters and Setters
-    String getTypeOfStatement(); // Fixed type.
+    TypeOfStatement getTypeOfStatement(); // Fixed type.
 
     // Amount
     double getAmount();

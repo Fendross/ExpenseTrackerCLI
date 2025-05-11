@@ -1,12 +1,11 @@
 package core.income;
 
 import core.cashflowstatement.CashFlowStatement;
+import utils.GenericUtils.TypeOfStatement;
 
 import java.util.Date;
 
 public class Income implements CashFlowStatement {
-    // TODO implement constructor and methods.
-
     // Class Fields.
     double amount;
     Date dateOfStatement;
@@ -17,8 +16,8 @@ public class Income implements CashFlowStatement {
     public Income() {}
 
     @Override
-    public String getTypeOfStatement() {
-        return "Income";
+    public TypeOfStatement getTypeOfStatement() {
+        return TypeOfStatement.INCOME;
     }
 
     // Amount.
