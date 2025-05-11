@@ -7,6 +7,7 @@ import utils.GenericUtils.TypeOfStatement;
 public interface CashFlowStatement {
     /**
      * A CashFlowStatement consists of:
+     *  - Unique identifier (an integer)
      *  - Type of statement (expense or income)
      *  - Amount
      *  - Date of statement
@@ -18,26 +19,30 @@ public interface CashFlowStatement {
     // Getters and Setters
     TypeOfStatement getTypeOfStatement(); // Fixed type.
 
-    // Amount
+    // ID.
+    int getId();
+    void setId(int id);
+
+    // Amount.
     double getAmount();
     void setAmount(double amount);
 
-    // DateOfStatement
+    // DateOfStatement.
     Date getDateOfStatement();
     void setDateOfStatement(Date dateOfStatement);
 
-    // Category
+    // Category.
     String getCategory();
     void setCategory(String category);
 
-    // Subcategory
+    // Subcategory.
     String getSubcategory();
     void setSubcategory(String subcategory);
 
-    // Description
+    // Description.
     String getDescription();
     void setDescription(String description);
 
-    // View all items
+    // View all items.
     void viewAllItems();
 }

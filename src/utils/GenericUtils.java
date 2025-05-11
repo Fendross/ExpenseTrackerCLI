@@ -3,6 +3,7 @@ package utils;
 import java.util.ArrayList;
 
 public class GenericUtils {
+    public static int id = initGlobalId();
     public enum TypeOfStatement {
         EXPENSE,
         INCOME,
@@ -18,5 +19,17 @@ public class GenericUtils {
         } else {
             return TypeOfStatement.UNRECOGNIZED;
         }
+    }
+
+    public static int initGlobalId() {
+        return 0;
+    }
+
+    public static int getGlobalId() {
+        return id;
+    }
+
+    public static int updateGlobalId() {
+        return id++;
     }
 }

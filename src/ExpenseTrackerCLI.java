@@ -55,7 +55,6 @@ public class ExpenseTrackerCLI {
                             ReplUtils.handleWrongTypeOfStatement();
                             continue;
                         }
-
                         handleAddCommand(commands, typeOfStatement);
                         wasLastCommandHelp = false;
                     } catch (AddException ex) {
@@ -67,7 +66,7 @@ public class ExpenseTrackerCLI {
                         handleDeleteCommand(commands);
                         wasLastCommandHelp = false;
                     } catch (DeleteException ex) {
-                        System.out.println("Error while inserting: " + ex.getMessage());
+                        System.out.println("Error while deleting: " + ex.getMessage());
                     }
                     break;
                 case "view":
@@ -75,7 +74,7 @@ public class ExpenseTrackerCLI {
                         handleViewCommand();
                         wasLastCommandHelp = false;
                     } catch (ViewException ex) {
-                        System.out.println("Error while inserting: " + ex.getMessage());
+                        System.out.println("Error while visualizing sets: " + ex.getMessage());
                     }
                     break;
                 default:
@@ -86,20 +85,29 @@ public class ExpenseTrackerCLI {
 
     public static void handleAddCommand(ArrayList<String> commands, TypeOfStatement typeOfStatement) throws AddException {
         if (typeOfStatement == TypeOfStatement.EXPENSE) {
-            expenseManager.addExpense();
+            expenseManager.addExpense(commands);
         } else {
-            incomeManager.addIncome();
+            incomeManager.addIncome(commands);
         }
         System.out.println("Handled add command.");
         ReplUtils.separateBlocks();
     }
 
     public static void handleDeleteCommand(ArrayList<String> commands) throws DeleteException {
+//        int idFromCommands = Integer.parseInt(commands.get(1));
+//        if (expenseManager.checkIdExistence(idFromCommands)) {
+//            expenseManager.deleteExpense(idFromCommands);
+//        } else if (incomeManager.checkIdExistence(idFromCommands)) {
+//            incomeManager.deleteIncome(idFromCommands);
+//        } else {
+//            throw new DeleteException("ID " + idFromCommands + " does not exist.", new Throwable());
+//        }
         System.out.println("Handled delete command.");
         ReplUtils.separateBlocks();
     }
 
     public static void handleViewCommand() throws ViewException {
+        System.out.println("List of Expenses: " + expenseManager.toString() + "\n" + "List of Incomes: " + incomeManager.toString());
         System.out.println("Handled view command.");
         ReplUtils.separateBlocks();
     }

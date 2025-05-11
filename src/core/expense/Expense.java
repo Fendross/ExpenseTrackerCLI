@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class Expense implements CashFlowStatement {
     // Class Fields.
+    int id;
     double amount;
     Date dateOfStatement;
     String category;
@@ -15,9 +16,16 @@ public class Expense implements CashFlowStatement {
 
     public Expense() {}
 
-    @Override
     public TypeOfStatement getTypeOfStatement() {
         return TypeOfStatement.EXPENSE;
+    }
+
+    // ID.
+    public int getId() {
+        return this.id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     // Amount.
@@ -58,6 +66,11 @@ public class Expense implements CashFlowStatement {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "{ id: " + this.getId() + "; amount: " + this.getAmount() + "; dateOfStatement: " + this.getDateOfStatement() + "; category: " + this.getCategory() + "; subcategory: " + this.getSubcategory() + "; description: " + this.getDescription() + " }";
     }
 
     // View all items.
