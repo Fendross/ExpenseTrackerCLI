@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import core.expense.Expense;
 import core.expense.ExpenseManager;
+import core.income.Income;
 import core.income.IncomeManager;
 
 import exceptions.AddException;
@@ -93,16 +95,26 @@ public class ExpenseTrackerCLI {
     }
 
     public static void handleDeleteCommand(ArrayList<String> commands) throws DeleteException {
-//        int idFromCommands = Integer.parseInt(commands.get(1));
-//        if (expenseManager.checkIdExistence(idFromCommands)) {
-//            expenseManager.deleteExpense(idFromCommands);
-//        } else if (incomeManager.checkIdExistence(idFromCommands)) {
-//            incomeManager.deleteIncome(idFromCommands);
-//        } else {
-//            throw new DeleteException("ID " + idFromCommands + " does not exist.", new Throwable());
-//        }
-        System.out.println("Handled delete command.");
-        ReplUtils.separateBlocks();
+        int idFromCommands;
+        try {
+            idFromCommands = Integer.parseInt(commands.get(1));
+        } catch (IndexOutOfBoundsException ex) {
+            throw new DeleteException("ID not present, please specify it to delete cashflow statement.", new Throwable());
+        } catch (NumberFormatException ex) {
+            throw new DeleteException("ID cannot be parsed correctly to a number.", new Throwable());
+        }
+
+        Expense expenseToBeDeleted = expenseManager.getExpenseWithMatchingId(idFromCommands);
+        Income incomeToBeDeleted = incomeManager.getIncomeWithMatchingId(idFromCommands);
+
+        if (expenseToBeDeleted != null) {
+            expenseManager.deleteExpense(expenseToBeDeleted);
+        } else if (incomeToBeDeleted != null) {
+            incomeManager.deleteIncome(incomeToBeDeleted);
+        } else {
+            throw new DeleteException("ID " + idFromCommands + " does not exist.", new Throwable());
+        }
+        ReplUtils.handleDeleteSuccess(idFromCommands);
     }
 
     public static void handleViewCommand() throws ViewException {

@@ -1,5 +1,6 @@
 package core.income;
 
+import core.expense.Expense;
 import exceptions.AddException;
 import utils.GenericUtils;
 
@@ -7,17 +8,26 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class IncomeManager {
-    // TODO implement operations and list them in the API docs.
     ArrayList<Income> incomes = new ArrayList<>();
     public IncomeManager() {}
+
+    public Income getIncomeWithMatchingId(int id) {
+        if (incomes.size() > 0) {
+            for (Income income: incomes) {
+                if (income.getId() == id) {
+                    return income;
+                }
+            }
+        }
+        return null;
+    }
 
     public void addIncome(ArrayList<String> commands) throws AddException {
         incomes.add(buildIncome(commands));
     }
 
-    public void deleteIncome(int id) {
-        // TODO implement deletion.
-        System.out.println("Deleted income from ExpenseManager.");
+    public void deleteIncome(Income income) {
+        incomes.remove(income);
     }
 
     public Income buildIncome(ArrayList<String> commands) throws AddException {

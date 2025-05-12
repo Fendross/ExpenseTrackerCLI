@@ -51,7 +51,13 @@ public class ReplUtils {
     }
 
     public static void handleAddSuccess(TypeOfStatement typeOfStatement) {
-        System.out.println("Added " + typeOfStatement.name().toLowerCase() + " statement with id: " + GenericUtils.getCurrentGlobalId() + ".");
+        System.out.println("Successfully added " + typeOfStatement.name().toLowerCase() + " statement with id: " + GenericUtils.getCurrentGlobalId() + ".");
+
+        separateBlocks();
+    }
+
+    public static void handleDeleteSuccess(int id) {
+        System.out.println("Successfully deleted statement with id: " + id + ".");
 
         separateBlocks();
     }

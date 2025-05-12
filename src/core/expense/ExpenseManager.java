@@ -7,17 +7,26 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ExpenseManager {
-    // TODO implement operations and list them in the API docs.
     ArrayList<Expense> expenses = new ArrayList<>();
     public ExpenseManager() {}
+
+    public Expense getExpenseWithMatchingId(int id) {
+        if (expenses.size() > 0) {
+            for (Expense expense: expenses) {
+                if (expense.getId() == id) {
+                    return expense;
+                }
+            }
+        }
+        return null;
+    }
 
     public void addExpense(ArrayList<String> commands) throws AddException {
         expenses.add(buildExpense(commands));
     }
 
-    public void deleteExpense(int id) {
-        // TODO implement deletion.
-        System.out.println("Deleted expense from ExpenseManager.");
+    public void deleteExpense(Expense expense) {
+        expenses.remove(expense);
     }
 
     public Expense buildExpense(ArrayList<String> commands) throws AddException {
