@@ -7,8 +7,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ExpenseManager {
-    ArrayList<Expense> expenses = new ArrayList<>();
+    public ArrayList<Expense> expenses = new ArrayList<>();
     public ExpenseManager() {}
+
+    public ArrayList<Expense> getExpenses() {
+        return expenses;
+    }
 
     public Expense getExpenseWithMatchingId(int id) {
         if (expenses.size() > 0) {

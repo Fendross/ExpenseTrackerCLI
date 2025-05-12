@@ -1,5 +1,8 @@
 package utils;
 
+import core.expense.ExpenseManager;
+import core.income.IncomeManager;
+
 import utils.GenericUtils.TypeOfStatement;
 
 public class ReplUtils {
@@ -16,6 +19,21 @@ public class ReplUtils {
             return true;
         }
         return false;
+    }
+
+    public static void printAllStatements(ExpenseManager expenseManager, IncomeManager incomeManager) {
+        if (expenseManager.getExpenses().size() > 0) { printExpenses(expenseManager); }
+        if (incomeManager.getIncomes().size() > 0) { printIncomes(incomeManager); }
+
+        ReplUtils.separateBlocks();
+    }
+
+    public static void printExpenses(ExpenseManager expenseManager) {
+        System.out.println("List of Expenses: \n" + expenseManager.toString());
+    }
+
+    public static void printIncomes(IncomeManager incomeManager) {
+        System.out.println("List of Incomes: \n" + incomeManager.toString());
     }
 
     public static void handleHelpCommand() {

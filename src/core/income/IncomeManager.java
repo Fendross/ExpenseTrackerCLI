@@ -8,8 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class IncomeManager {
-    ArrayList<Income> incomes = new ArrayList<>();
+    public ArrayList<Income> incomes = new ArrayList<>();
     public IncomeManager() {}
+
+    public ArrayList<Income> getIncomes() {
+        return incomes;
+    }
 
     public Income getIncomeWithMatchingId(int id) {
         if (incomes.size() > 0) {

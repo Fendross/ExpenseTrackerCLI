@@ -10,9 +10,13 @@ import core.income.IncomeManager;
 import exceptions.AddException;
 import exceptions.DeleteException;
 import exceptions.ViewException;
+import exceptions.ReportException;
+
 import utils.GenericUtils;
 import utils.GenericUtils.TypeOfStatement;
 import utils.ReplUtils;
+
+import javax.swing.text.View;
 
 public class ExpenseTrackerCLI {
 
@@ -72,6 +76,14 @@ public class ExpenseTrackerCLI {
                         System.out.println("Error while visualizing sets: " + ex.getMessage());
                     }
                     break;
+                case "report":
+                    try {
+                        handleReportCommand();
+                        wasLastCommandHelp = false;
+                    } catch (ReportException ex) {
+                        System.out.println("Error while visualizing sets: " + ex.getMessage());
+                    }
+                    break;
                 default:
                     System.out.println("Unrecognized command. Please try again.");
             }
@@ -118,7 +130,15 @@ public class ExpenseTrackerCLI {
     }
 
     public static void handleViewCommand() throws ViewException {
-        System.out.println("List of Expenses: \n" + expenseManager.toString() + "\n" + "List of Incomes: \n" + incomeManager.toString());
-        ReplUtils.separateBlocks();
+        ArrayList<Expense> expenses = expenseManager.getExpenses();
+        ArrayList<Income> incomes = incomeManager.getIncomes();
+        if (expenses.size() == 0 && incomes.size() == 0) {
+            throw new ViewException("Nothing to be visualized since there is no statement that has been added.", new Throwable());
+        }
+        ReplUtils.printAllStatements(expenseManager, incomeManager);
+    }
+
+    public static void handleReportCommand() throws ReportException {
+        // TODO feature #7.
     }
 }
