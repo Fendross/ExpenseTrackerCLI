@@ -1,8 +1,12 @@
 package utils;
 
+import utils.GenericUtils.TypeOfStatement;
+
 public class ReplUtils {
     public static void welcomeUser() {
         System.out.println("** ExpenseTrackerCLI - Manage your cashflow statements **");
+
+        separateBlocks();
     }
 
     public static boolean askForInput(boolean wasLastCommandHelp) {
@@ -35,6 +39,19 @@ public class ReplUtils {
         System.out.println("Allowed values are: ");
         System.out.println("- expense");
         System.out.println("- income");
+
+        separateBlocks();
+    }
+
+    public static void handleNotEnoughMandatoryParams() {
+        System.out.println("In order to insert a cashflow statement, at least the first 4 parameters must be passed to the application.");
+        System.out.println("Type 'help' for more info.");
+
+        separateBlocks();
+    }
+
+    public static void handleAddSuccess(TypeOfStatement typeOfStatement) {
+        System.out.println("Added " + typeOfStatement.name().toLowerCase() + " statement with id: " + GenericUtils.getCurrentGlobalId() + ".");
 
         separateBlocks();
     }

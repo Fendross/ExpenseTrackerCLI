@@ -3,7 +3,9 @@ package utils;
 import java.util.ArrayList;
 
 public class GenericUtils {
-    public static int id = initGlobalId();
+
+    public static int id = 0;
+    public static boolean hasBeenInitialized = false;
     public enum TypeOfStatement {
         EXPENSE,
         INCOME,
@@ -21,15 +23,20 @@ public class GenericUtils {
         }
     }
 
-    public static int initGlobalId() {
-        return 0;
-    }
-
-    public static int getGlobalId() {
+    public static int getCurrentGlobalId() {
         return id;
     }
 
-    public static int updateGlobalId() {
-        return id++;
+    public static void incrementGlobalId() {
+        id += 1;
+    }
+
+    public static int nextGlobalId() {
+        if (!hasBeenInitialized) {
+            hasBeenInitialized = true;
+            return id;
+        }
+        incrementGlobalId();
+        return id;
     }
 }

@@ -2,9 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import core.expense.Expense;
 import core.expense.ExpenseManager;
-import core.income.Income;
 import core.income.IncomeManager;
 
 import exceptions.AddException;
@@ -16,8 +14,9 @@ import utils.ReplUtils;
 
 public class ExpenseTrackerCLI {
 
-    static ExpenseManager expenseManager = new ExpenseManager();
-    static IncomeManager incomeManager = new IncomeManager();
+    public static ExpenseManager expenseManager = new ExpenseManager();
+    public static IncomeManager incomeManager = new IncomeManager();
+
     public static void main(String[] args) {
         // Handle wrong num of arguments.
         int expectedArgs = 0;
@@ -31,7 +30,6 @@ public class ExpenseTrackerCLI {
         boolean wasLastCommandHelp = false;
 
         ReplUtils.welcomeUser();
-        ReplUtils.separateBlocks();
         while (true) {
             Scanner scanner = new Scanner(System.in);
             wasLastCommandHelp = ReplUtils.askForInput(wasLastCommandHelp);
@@ -50,11 +48,17 @@ public class ExpenseTrackerCLI {
                     continue;
                 case "add":
                     try {
+                        if (commands.size() < 4) {
+                            ReplUtils.handleNotEnoughMandatoryParams();
+                            continue;
+                        }
+
                         typeOfStatement = GenericUtils.fetchTypeOfStatement(commands);
                         if (typeOfStatement == TypeOfStatement.UNRECOGNIZED) {
                             ReplUtils.handleWrongTypeOfStatement();
                             continue;
                         }
+
                         handleAddCommand(commands, typeOfStatement);
                         wasLastCommandHelp = false;
                     } catch (AddException ex) {
@@ -89,8 +93,7 @@ public class ExpenseTrackerCLI {
         } else {
             incomeManager.addIncome(commands);
         }
-        System.out.println("Handled add command.");
-        ReplUtils.separateBlocks();
+        ReplUtils.handleAddSuccess(typeOfStatement);
     }
 
     public static void handleDeleteCommand(ArrayList<String> commands) throws DeleteException {
@@ -107,8 +110,7 @@ public class ExpenseTrackerCLI {
     }
 
     public static void handleViewCommand() throws ViewException {
-        System.out.println("List of Expenses: " + expenseManager.toString() + "\n" + "List of Incomes: " + incomeManager.toString());
-        System.out.println("Handled view command.");
+        System.out.println("List of Expenses: \n" + expenseManager.toString() + "\n" + "List of Incomes: \n" + incomeManager.toString());
         ReplUtils.separateBlocks();
     }
 }
