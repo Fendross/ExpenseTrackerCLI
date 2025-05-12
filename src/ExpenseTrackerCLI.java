@@ -48,18 +48,7 @@ public class ExpenseTrackerCLI {
                     continue;
                 case "add":
                     try {
-                        if (commands.size() < 4) {
-                            ReplUtils.handleNotEnoughMandatoryParams();
-                            continue;
-                        }
-
-                        typeOfStatement = GenericUtils.fetchTypeOfStatement(commands);
-                        if (typeOfStatement == TypeOfStatement.UNRECOGNIZED) {
-                            ReplUtils.handleWrongTypeOfStatement();
-                            continue;
-                        }
-
-                        handleAddCommand(commands, typeOfStatement);
+                        handleAddCommand(commands);
                         wasLastCommandHelp = false;
                     } catch (AddException ex) {
                         System.out.println("Error while inserting: " + ex.getMessage());
@@ -87,13 +76,20 @@ public class ExpenseTrackerCLI {
         }
     }
 
-    public static void handleAddCommand(ArrayList<String> commands, TypeOfStatement typeOfStatement) throws AddException {
-        if (typeOfStatement == TypeOfStatement.EXPENSE) {
-            expenseManager.addExpense(commands);
+    public static void handleAddCommand(ArrayList<String> commands) throws AddException {
+        TypeOfStatement typeOfStatement = GenericUtils.fetchTypeOfStatement(commands);
+        if (typeOfStatement == TypeOfStatement.UNRECOGNIZED) {
+            ReplUtils.handleWrongTypeOfStatement();
+        } else if (commands.size() < 4) {
+            ReplUtils.handleNotEnoughMandatoryParams();
         } else {
-            incomeManager.addIncome(commands);
+            if (typeOfStatement == TypeOfStatement.EXPENSE) {
+                expenseManager.addExpense(commands);
+            } else {
+                incomeManager.addIncome(commands);
+            }
+            ReplUtils.handleAddSuccess(typeOfStatement);
         }
-        ReplUtils.handleAddSuccess(typeOfStatement);
     }
 
     public static void handleDeleteCommand(ArrayList<String> commands) throws DeleteException {
