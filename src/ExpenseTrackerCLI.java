@@ -16,8 +16,6 @@ import utils.GenericUtils;
 import utils.GenericUtils.TypeOfStatement;
 import utils.ReplUtils;
 
-import javax.swing.text.View;
-
 public class ExpenseTrackerCLI {
 
     public static ExpenseManager expenseManager = new ExpenseManager();
