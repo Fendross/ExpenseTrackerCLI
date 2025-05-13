@@ -81,10 +81,23 @@ public class ReplUtils {
     }
 
     /**
+     * Prints a minimal cash flow report with a balance.
+     *
+     * @param currency Currency of the balance
+     * @param balance Total amounts of incomes minus total amount of expenses.
+     */
+    public static void printCashFlowReport(String currency, double balance) {
+        separateBlocks();
+        System.out.println("** Cash Flow Report **\n");
+        System.out.println("- Current Balance: " + currency + " " + balance);
+        separateBlocks();
+    }
+    
+    /**
      * Notifies the user of an unrecognized type of statement and lists valid options.
      */
     public static void handleWrongTypeOfStatement() {
-        System.out.println("Wrong type of cashflow statement.");
+        System.out.println("Wrong type of cash flow statement.");
         System.out.println("Allowed values are: ");
         System.out.println("- expense");
         System.out.println("- income");

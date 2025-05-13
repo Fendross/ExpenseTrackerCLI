@@ -6,6 +6,16 @@ public class GenericUtils {
 
     public static int id = 0;
     public static boolean hasBeenInitialized = false;
+
+    /**
+     * Gets the currency that cashflow statements refer to.
+     *
+     * @return "EUR" Euro currency.
+     */
+    public static String getCurrency() {
+        return "EUR";
+    }
+
     public enum TypeOfStatement {
         EXPENSE,
         INCOME,
