@@ -12,6 +12,13 @@ public class GenericUtils {
         UNRECOGNIZED
     }
 
+    /**
+     * Determines the type of statement (income or expense) based on the user command.
+     *
+     * @param commands A list of command-line arguments where the second element specifies the type.
+     * @return A TypeOfStatement value based on the input.
+     * @throws ArrayIndexOutOfBoundsException if the command list does not contain enough elements.
+     */
     public static TypeOfStatement fetchTypeOfStatement(ArrayList<String> commands) throws ArrayIndexOutOfBoundsException {
         String strTypeOfStatement = commands.get(1).toUpperCase();
         if (strTypeOfStatement.equals(TypeOfStatement.EXPENSE.name())) {
@@ -23,14 +30,28 @@ public class GenericUtils {
         }
     }
 
+    /**
+     * Retrieves the current global ID without incrementing it.
+     *
+     * @return The current global identifier.
+     */
     public static int getCurrentGlobalId() {
         return id;
     }
 
+    /**
+     * Increments the global ID counter by one.
+     */
     public static void incrementGlobalId() {
         id += 1;
     }
 
+    /**
+     * Returns the next available global ID and increments the counter.
+     * On first call, returns the current ID without incrementing.
+     *
+     * @return The next global identifier.
+     */
     public static int nextGlobalId() {
         if (!hasBeenInitialized) {
             hasBeenInitialized = true;

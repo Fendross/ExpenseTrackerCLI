@@ -18,18 +18,25 @@ import utils.ReplUtils;
 
 public class ExpenseTrackerCLI {
 
+    /** Manages all expense-related operations. */
     public static ExpenseManager expenseManager = new ExpenseManager();
+
+    /** Manages all income-related operations. */
     public static IncomeManager incomeManager = new IncomeManager();
 
+    /**
+     * The main entry point of the Expense Tracker CLI application.
+     * It initializes the REPL loop and handles user commands.
+     *
+     * @param args command-line arguments (currently expects none)
+     */
     public static void main(String[] args) {
-        // Handle wrong num of arguments.
         int expectedArgs = 0;
         if (args.length != expectedArgs) {
             System.out.println("Too many arguments. Expected arguments: " + expectedArgs);
             System.exit(1);
         }
 
-        // Init variables.
         TypeOfStatement typeOfStatement;
         boolean wasLastCommandHelp = false;
 
@@ -88,6 +95,13 @@ public class ExpenseTrackerCLI {
         }
     }
 
+    /**
+     * Handles the "add" command by determining the type (income or expense)
+     * and delegating to the appropriate manager.
+     *
+     * @param commands A list of parsed command-line arguments.
+     * @throws AddException If the command is malformed or the addition fails.
+     */
     public static void handleAddCommand(ArrayList<String> commands) throws AddException {
         TypeOfStatement typeOfStatement = GenericUtils.fetchTypeOfStatement(commands);
         if (typeOfStatement == TypeOfStatement.UNRECOGNIZED) {
@@ -104,6 +118,13 @@ public class ExpenseTrackerCLI {
         }
     }
 
+    /**
+     * Handles the "delete" command by locating an entry (expense or income)
+     * by its ID and removing it.
+     *
+     * @param commands A list of parsed command-line arguments.
+     * @throws DeleteException If the ID is missing, invalid, or not found.
+     */
     public static void handleDeleteCommand(ArrayList<String> commands) throws DeleteException {
         int idFromCommands;
         try {
@@ -127,6 +148,11 @@ public class ExpenseTrackerCLI {
         ReplUtils.handleDeleteSuccess(idFromCommands);
     }
 
+    /**
+     * Handles the "view" command by displaying all recorded income and expense statements.
+     *
+     * @throws ViewException If there are no statements to display.
+     */
     public static void handleViewCommand() throws ViewException {
         ArrayList<Expense> expenses = expenseManager.getExpenses();
         ArrayList<Income> incomes = incomeManager.getIncomes();
@@ -136,6 +162,12 @@ public class ExpenseTrackerCLI {
         ReplUtils.printAllStatements(expenseManager, incomeManager);
     }
 
+    /**
+     * Handles the "report" command. This feature is currently a placeholder
+     * and will be implemented in a future version.
+     *
+     * @throws ReportException Placeholder exception for future implementation.
+     */
     public static void handleReportCommand() throws ReportException {
         // TODO feature #7.
     }
