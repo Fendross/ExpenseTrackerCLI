@@ -16,6 +16,9 @@ import utils.GenericUtils;
 import utils.GenericUtils.TypeOfStatement;
 import utils.ReplUtils;
 
+import static utils.GenericUtils.numOfMandatoryAddParams;
+import static utils.GenericUtils.numOfMaximumAddParams;
+
 public class ExpenseTrackerCLI {
 
     /** Manages all expense-related operations. */
@@ -105,8 +108,10 @@ public class ExpenseTrackerCLI {
         TypeOfStatement typeOfStatement = GenericUtils.fetchTypeOfStatement(commands);
         if (typeOfStatement == TypeOfStatement.UNRECOGNIZED) {
             ReplUtils.handleWrongTypeOfStatement();
-        } else if (commands.size() < 4) {
+        } else if (commands.size() < numOfMandatoryAddParams) {
             ReplUtils.handleNotEnoughMandatoryParams();
+        } else if (commands.size() > numOfMaximumAddParams) {
+            ReplUtils.handleTooManyParams();
         } else {
             if (typeOfStatement == TypeOfStatement.EXPENSE) {
                 expenseManager.addExpense(commands);

@@ -27,6 +27,8 @@ In order:
 - subcategory -> string, subcategory of statement
 - description -> string, description of statement
 
+It directly follows that a command will not be executed if it has less than 4 parameters or more than 6.
+
 ### `delete`
 Delete from the appropriate data structures the cash flow statement specified.
 

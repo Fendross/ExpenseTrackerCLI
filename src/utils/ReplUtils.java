@@ -123,6 +123,16 @@ public class ReplUtils {
     }
 
     /**
+     * Notifies the user that there are too many params while adding a statement.
+     */
+    public static void handleTooManyParams() {
+        System.out.println("Too many parameters. There can be a maximum of 6 (e.g. add expense 100 travel flight economy).");
+        System.out.println("Type 'help' for more info.");
+
+        separateBlocks();
+    }
+
+    /**
      * Informs the user that a statement was successfully added.
      *
      * @param typeOfStatement The type of statement that was added (expense or income).

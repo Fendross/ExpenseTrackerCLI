@@ -6,8 +6,13 @@ import java.util.ArrayList;
 
 public class GenericUtils {
 
+    // Shared variables.
     public static int id = 0;
     public static boolean hasBeenInitialized = false;
+    public static int numOfMandatoryAddParams = 4;
+    public static int numOfMaximumAddParams = 6;
+
+    // Format utils.
     public static DecimalFormat df = new DecimalFormat("#0.00");
     public static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
