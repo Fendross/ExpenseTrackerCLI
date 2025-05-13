@@ -1,6 +1,5 @@
 package core.income;
 
-import core.expense.Expense;
 import exceptions.AddException;
 import utils.GenericUtils;
 
