@@ -37,7 +37,6 @@ public class ExpenseTrackerCLI {
             System.exit(1);
         }
 
-        TypeOfStatement typeOfStatement;
         boolean wasLastCommandHelp = false;
 
         ReplUtils.welcomeUser();

@@ -11,18 +11,25 @@ public class ExpenseManager {
     public ExpenseManager() {}
 
     public ArrayList<Expense> getExpenses() {
-        return expenses;
+        return this.expenses;
+    }
+
+    public int getExpensesSize() {
+        return this.getExpenses().size();
     }
 
     public Expense getExpenseWithMatchingId(int id) {
-        if (expenses.size() > 0) {
-            for (Expense expense: expenses) {
-                if (expense.getId() == id) {
-                    return expense;
-                }
+        if (this.getExpensesSize() == 0) {
+            return null;
+        }
+
+        Expense expenseFromSearch = new Expense();
+        for (Expense expense: this.getExpenses()) {
+            if (expense.getId() == id) {
+                expenseFromSearch = expense;
             }
         }
-        return null;
+        return expenseFromSearch == null ? null : expenseFromSearch;
     }
 
     public void addExpense(ArrayList<String> commands) throws AddException {
@@ -76,6 +83,18 @@ public class ExpenseManager {
         }
 
         return expense;
+    }
+
+    public double getTotalExpensesAmount() {
+        if (this.getExpensesSize() == 0) {
+            return 0;
+        }
+
+        double totalExpensesAmount = 0;
+        for (Expense expense: this.getExpenses()) {
+            totalExpensesAmount += expense.getAmount();
+        }
+        return totalExpensesAmount;
     }
 
     @Override

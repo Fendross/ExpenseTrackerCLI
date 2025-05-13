@@ -12,18 +12,25 @@ public class IncomeManager {
     public IncomeManager() {}
 
     public ArrayList<Income> getIncomes() {
-        return incomes;
+        return this.incomes;
+    }
+
+    public int getIncomesSize() {
+        return this.getIncomes().size();
     }
 
     public Income getIncomeWithMatchingId(int id) {
-        if (incomes.size() > 0) {
-            for (Income income: incomes) {
-                if (income.getId() == id) {
-                    return income;
-                }
+        if (this.getIncomesSize() == 0) {
+            return null;
+        }
+
+        Income incomeFromSearch = new Income();
+        for (Income income: this.getIncomes()) {
+            if (income.getId() == id) {
+                incomeFromSearch = income;
             }
         }
-        return null;
+        return incomeFromSearch == null ? null : incomeFromSearch;
     }
 
     public void addIncome(ArrayList<String> commands) throws AddException {
@@ -77,6 +84,18 @@ public class IncomeManager {
         }
 
         return income;
+    }
+
+    public double getTotalIncomesAmount() {
+        if (this.getIncomesSize() == 0) {
+            return 0;
+        }
+
+        double totalIncomesAmount = 0;
+        for (Income income: this.getIncomes()) {
+            totalIncomesAmount += income.getAmount();
+        }
+        return totalIncomesAmount;
     }
 
     @Override
