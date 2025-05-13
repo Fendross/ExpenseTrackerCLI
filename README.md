@@ -15,7 +15,7 @@ Refer to the following functionalities.
 **Notice**: parameters must be separated by a single whitespace in between them.
 
 ### `add` 
-Append to the appropriate data structures the cashflow statement specified.
+Append to the appropriate data structures the cash flow statement specified.
 
 In order:
 1. Mandatory parameters:
@@ -28,14 +28,17 @@ In order:
 - description -> string, description of statement
 
 ### `delete`
-Delete from the appropriate data structures the cashflow statement specified.
+Delete from the appropriate data structures the cash flow statement specified.
 
 In order:
 1. Mandatory parameters:
-- id -> integer, unique identifier of the cashflow statement
+- id -> integer, unique identifier of the cash flow statement
 
 ### `view`
-Lists all cashflow statements that have been added since the launch of the program.
+Lists all cash flow statements that have been added since the launch of the program.
+
+### `report`
+Prints a minimal cash flow report, showing the balance and its currency. 
 
 ### `help`
 Prints a mini guide on how to use the CLI.

@@ -92,7 +92,7 @@ public class ReplUtils {
         System.out.println("- Current Balance: " + currency + " " + balance);
         separateBlocks();
     }
-    
+
     /**
      * Notifies the user of an unrecognized type of statement and lists valid options.
      */
