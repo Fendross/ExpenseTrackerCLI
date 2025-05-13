@@ -153,9 +153,7 @@ public class ExpenseTrackerCLI {
      * @throws ViewException If there are no statements to display.
      */
     public static void handleViewCommand() throws ViewException {
-        ArrayList<Expense> expenses = expenseManager.getExpenses();
-        ArrayList<Income> incomes = incomeManager.getIncomes();
-        if (expenses.size() == 0 && incomes.size() == 0) {
+        if (expenseManager.getExpensesSize() == 0 && incomeManager.getIncomesSize() == 0) {
             throw new ViewException("Nothing to be visualized since there is no statement that has been added.", new Throwable());
         }
         ReplUtils.printAllStatements(expenseManager, incomeManager);
