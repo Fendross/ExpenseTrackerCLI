@@ -162,20 +162,21 @@ public class ExpenseTrackerCLI {
     }
 
     /**
-     * Handles the "report" command. This feature is currently a placeholder
-     * and will be implemented in a future version.
-     *
-     * Important: balance is the algebraic sum of expense amounts and income
-     * amounts. Since expenses are registered with a negative amount, I'm
-     * accounting for that by summing the total instead of subtracting it.
+     * Handles the "report" command by retrieving/calculating all needed values and calling
+     * printCashFlowReport from ReplUtils class.
      *
      * @throws ReportException Placeholder exception for future implementation.
      */
     public static void handleReportCommand() throws ReportException {
-        // Get all values needed for the report.
-        String currency = GenericUtils.getCurrency();
-        double balance = incomeManager.getTotalIncomesAmount() + expenseManager.getTotalExpensesAmount();
+        if (expenseManager.getExpensesSize() == 0 || incomeManager.getIncomesSize() == 0) {
+            throw new ReportException("No cash flow statements to account for.", new Throwable());
+        }
 
-        ReplUtils.printCashFlowReport(currency, balance);
+        String currency = GenericUtils.getCurrency();
+        double totalFromIncomes = incomeManager.getTotalIncomesAmount();
+        double totalFromExpenses = -(expenseManager.getTotalExpensesAmount());
+        double netBalance = totalFromIncomes - totalFromExpenses;
+
+        ReplUtils.printCashFlowReport(currency, totalFromIncomes, totalFromExpenses, netBalance);
     }
 }

@@ -38,7 +38,10 @@ In order:
 Lists all cash flow statements that have been added since the launch of the program.
 
 ### `report`
-Prints a minimal cash flow report, showing the balance and its currency. 
+Prints a minimal cash flow report, showing (with the appropriate currency):
+- The total amount of incomes
+- The total amount of incomes
+- The net cash flow
 
 ### `help`
 Prints a mini guide on how to use the CLI.

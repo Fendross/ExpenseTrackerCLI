@@ -81,15 +81,22 @@ public class ReplUtils {
     }
 
     /**
-     * Prints a minimal cash flow report with a balance.
+     * Prints a minimal cash flow report with:
+     *  - Total amount of incomes
+     *  - Total amount of expenses
+     *  - Net cash flow
      *
      * @param currency Currency of the balance
-     * @param balance Total amounts of incomes minus total amount of expenses.
+     * @param totalFromIncomes Total amount of all incomes
+     * @param totalFromExpenses Total amount of all expenses
+     * @param netBalance Net cash flow
      */
-    public static void printCashFlowReport(String currency, double balance) {
+    public static void printCashFlowReport(String currency, double totalFromIncomes, double totalFromExpenses, double netBalance) {
         separateBlocks();
-        System.out.println("** Cash Flow Report **\n");
-        System.out.println("- Current Balance: " + currency + " " + balance);
+        System.out.println("*** Cash Flow Report ***\n");
+        System.out.println("* Cash Flow from Incomes: " + currency + " " + totalFromIncomes);
+        System.out.println("* Cash Flow from Expenses: " + currency + " " + totalFromExpenses);
+        System.out.println("\n** Net Cash Flow: " + currency + " " + netBalance);
         separateBlocks();
     }
 
