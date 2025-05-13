@@ -14,7 +14,7 @@ public class GenericUtils {
 
     // Format utils.
     public static DecimalFormat df = new DecimalFormat("#0.00");
-    public static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * Gets the currency that cashflow statements refer to.
