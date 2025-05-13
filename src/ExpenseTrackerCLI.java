@@ -168,7 +168,7 @@ public class ExpenseTrackerCLI {
      * @throws ReportException Placeholder exception for future implementation.
      */
     public static void handleReportCommand() throws ReportException {
-        if (expenseManager.getExpensesSize() == 0 || incomeManager.getIncomesSize() == 0) {
+        if (expenseManager.getExpensesSize() == 0 && incomeManager.getIncomesSize() == 0) {
             throw new ReportException("No cash flow statements to account for.", new Throwable());
         }
 

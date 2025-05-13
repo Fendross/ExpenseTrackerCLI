@@ -1,11 +1,15 @@
 package utils;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class GenericUtils {
 
     public static int id = 0;
     public static boolean hasBeenInitialized = false;
+    public static DecimalFormat df = new DecimalFormat("#0.00");
+    public static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
     /**
      * Gets the currency that cashflow statements refer to.

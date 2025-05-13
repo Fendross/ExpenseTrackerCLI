@@ -1,7 +1,10 @@
 package core.income;
 
 import core.cashflowstatement.CashFlowStatement;
+
 import utils.GenericUtils.TypeOfStatement;
+import static utils.GenericUtils.df;
+import static utils.GenericUtils.sdf;
 
 import java.util.Date;
 
@@ -70,11 +73,6 @@ public class Income implements CashFlowStatement {
 
     @Override
     public String toString() {
-        return "{ id: " + this.getId() + "; amount: " + this.getAmount() + "; dateOfStatement: " + this.getDateOfStatement() + "; category: " + this.getCategory() + "; subcategory: " + this.getSubcategory() + "; description: " + this.getDescription() + " }";
-    }
-
-    // View all items.
-    public void viewAllItems() {
-        // TODO
+        return "{ id: " + this.getId() + "; amount: " + df.format(this.getAmount()) + "; dateOfStatement: " + sdf.format(this.getDateOfStatement()) + "; category: " + this.getCategory() + "; subcategory: " + this.getSubcategory() + "; description: " + this.getDescription() + " }";
     }
 }

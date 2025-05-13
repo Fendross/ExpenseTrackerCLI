@@ -5,6 +5,7 @@ import java.util.Date;
 import utils.GenericUtils.TypeOfStatement;
 
 public interface CashFlowStatement {
+
     /**
      * A CashFlowStatement consists of:
      *  - Unique identifier (an integer)
@@ -43,6 +44,4 @@ public interface CashFlowStatement {
     String getDescription();
     void setDescription(String description);
 
-    // View all items.
-    void viewAllItems();
 }
