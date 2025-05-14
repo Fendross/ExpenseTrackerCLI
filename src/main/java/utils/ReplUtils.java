@@ -1,9 +1,9 @@
-package utils;
+package main.java.utils;
 
-import core.expense.ExpenseManager;
-import core.income.IncomeManager;
+import main.java.core.expense.ExpenseManager;
+import main.java.core.income.IncomeManager;
 
-import utils.GenericUtils.TypeOfStatement;
+import main.java.utils.GenericUtils.TypeOfStatement;
 
 public class ReplUtils {
 
@@ -11,7 +11,7 @@ public class ReplUtils {
      * Prints a welcome message to the user upon starting the application.
      */
     public static void welcomeUser() {
-        System.out.println("** ExpenseTrackerCLI - Manage your cashflow statements **");
+        System.out.println("** ExpenseTrackerCLI - Manage your cash flow statements **");
         separateBlocks();
     }
 

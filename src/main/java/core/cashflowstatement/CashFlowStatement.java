@@ -1,8 +1,8 @@
-package core.cashflowstatement;
+package main.java.core.cashflowstatement;
 
 import java.util.Date;
 
-import utils.GenericUtils.TypeOfStatement;
+import main.java.utils.GenericUtils.TypeOfStatement;
 
 public interface CashFlowStatement {
 

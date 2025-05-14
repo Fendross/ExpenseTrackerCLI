@@ -1,23 +1,25 @@
+package main.java;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import core.expense.Expense;
-import core.expense.ExpenseManager;
-import core.income.Income;
-import core.income.IncomeManager;
+import main.java.core.expense.Expense;
+import main.java.core.expense.ExpenseManager;
+import main.java.core.income.Income;
+import main.java.core.income.IncomeManager;
 
-import exceptions.AddException;
-import exceptions.DeleteException;
-import exceptions.ViewException;
-import exceptions.ReportException;
+import main.java.exceptions.AddException;
+import main.java.exceptions.DeleteException;
+import main.java.exceptions.ViewException;
+import main.java.exceptions.ReportException;
 
-import utils.GenericUtils;
-import utils.GenericUtils.TypeOfStatement;
-import utils.ReplUtils;
+import main.java.utils.GenericUtils;
+import main.java.utils.GenericUtils.TypeOfStatement;
+import main.java.utils.ReplUtils;
 
-import static utils.GenericUtils.numOfMandatoryAddParams;
-import static utils.GenericUtils.numOfMaximumAddParams;
+import static main.java.utils.GenericUtils.numOfMandatoryAddParams;
+import static main.java.utils.GenericUtils.numOfMaximumAddParams;
 
 public class ExpenseTrackerCLI {
 

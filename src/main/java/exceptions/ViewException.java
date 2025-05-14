@@ -1,4 +1,4 @@
-package exceptions;
+package main.java.exceptions;
 
 public class ViewException extends Exception {
     public ViewException(String errorMessage, Throwable err) {

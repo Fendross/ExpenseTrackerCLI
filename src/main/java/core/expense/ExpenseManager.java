@@ -1,7 +1,7 @@
-package core.expense;
+package main.java.core.expense;
 
-import exceptions.AddException;
-import utils.GenericUtils;
+import main.java.exceptions.AddException;
+import main.java.utils.GenericUtils;
 
 import java.util.ArrayList;
 import java.util.Date;

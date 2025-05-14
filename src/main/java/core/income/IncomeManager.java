@@ -1,7 +1,7 @@
-package core.income;
+package main.java.core.income;
 
-import exceptions.AddException;
-import utils.GenericUtils;
+import main.java.exceptions.AddException;
+import main.java.utils.GenericUtils;
 
 import java.util.ArrayList;
 import java.util.Date;

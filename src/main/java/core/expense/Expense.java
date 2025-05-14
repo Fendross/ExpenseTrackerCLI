@@ -1,10 +1,10 @@
-package core.expense;
+package main.java.core.expense;
 
-import core.cashflowstatement.CashFlowStatement;
+import main.java.core.cashflowstatement.CashFlowStatement;
 
-import utils.GenericUtils.TypeOfStatement;
-import static utils.GenericUtils.df;
-import static utils.GenericUtils.sdf;
+import main.java.utils.GenericUtils.TypeOfStatement;
+import static main.java.utils.GenericUtils.df;
+import static main.java.utils.GenericUtils.sdf;
 
 import java.util.Date;
 

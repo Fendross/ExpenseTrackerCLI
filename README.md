@@ -6,7 +6,7 @@ A simple Java CLI application to manage expenses.
 
 ## How to execute
 
-Simply clone the repo into your own system, open up the project in a Java IDE and then run `ExpenseTrackerCLI.main` with no arguments.
+Simply clone the repo into your own system, open up the project in a Java IDE and then run `main.java.ExpenseTrackerCLI.main` with no arguments.
 After launching the CLI, interact with the application using the API described below.
 
 ## Operations
@@ -55,4 +55,4 @@ Terminates the execution.
 ## References
 
 - [Cash Flow Statement definition](https://en.wikipedia.org/wiki/Cash_flow_statement)
-- [Build a simple core.expense.Expense Tracker CLI](https://roadmap.sh/projects/expense-tracker)
+- [Build a simple main.java.core.expense.Expense Tracker CLI](https://roadmap.sh/projects/expense-tracker)
