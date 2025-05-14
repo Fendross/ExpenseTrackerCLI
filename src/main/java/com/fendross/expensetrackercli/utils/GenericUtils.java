@@ -25,6 +25,14 @@ public class GenericUtils {
         return "EUR";
     }
 
+    public static int getNumOfMandatoryAddParams() {
+        return numOfMandatoryAddParams;
+    }
+
+    public static int getNumOfMaximumAddParams() {
+        return numOfMaximumAddParams;
+    }
+
     public enum TypeOfStatement {
         EXPENSE,
         INCOME,
