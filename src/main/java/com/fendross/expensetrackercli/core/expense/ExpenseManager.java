@@ -23,13 +23,12 @@ public class ExpenseManager {
             return null;
         }
 
-        Expense expenseFromSearch = new Expense();
         for (Expense expense: this.getExpenses()) {
             if (expense.getId() == id) {
-                expenseFromSearch = expense;
+                return expense;
             }
         }
-        return expenseFromSearch == null ? null : expenseFromSearch;
+        return null;
     }
 
     public void addExpense(ArrayList<String> commands) throws AddException {

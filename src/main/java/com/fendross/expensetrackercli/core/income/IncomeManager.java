@@ -24,13 +24,12 @@ public class IncomeManager {
             return null;
         }
 
-        Income incomeFromSearch = new Income();
         for (Income income: this.getIncomes()) {
             if (income.getId() == id) {
-                incomeFromSearch = income;
+                return income;
             }
         }
-        return incomeFromSearch == null ? null : incomeFromSearch;
+        return null;
     }
 
     public void addIncome(ArrayList<String> commands) throws AddException {
