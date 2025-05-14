@@ -8,10 +8,12 @@ import com.fendross.expensetrackercli.core.expense.Expense;
 import com.fendross.expensetrackercli.core.expense.ExpenseManager;
 import com.fendross.expensetrackercli.core.income.Income;
 import com.fendross.expensetrackercli.core.income.IncomeManager;
+
 import com.fendross.expensetrackercli.exceptions.AddException;
 import com.fendross.expensetrackercli.exceptions.DeleteException;
 import com.fendross.expensetrackercli.exceptions.ReportException;
 import com.fendross.expensetrackercli.exceptions.ViewException;
+
 import com.fendross.expensetrackercli.utils.GenericUtils;
 import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 import com.fendross.expensetrackercli.utils.ReplUtils;
