@@ -1,12 +1,13 @@
-package main.java.core.income;
+package com.fendross.expensetrackercli.core.income;
 
-import main.java.core.cashflowstatement.CashFlowStatement;
+import com.fendross.expensetrackercli.core.cashflowstatement.CashFlowStatement;
 
-import main.java.utils.GenericUtils.TypeOfStatement;
-import static main.java.utils.GenericUtils.df;
-import static main.java.utils.GenericUtils.sdf;
+import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 
 import java.util.Date;
+
+import static com.fendross.expensetrackercli.utils.GenericUtils.df;
+import static com.fendross.expensetrackercli.utils.GenericUtils.sdf;
 
 public class Income implements CashFlowStatement {
     // Class Fields.

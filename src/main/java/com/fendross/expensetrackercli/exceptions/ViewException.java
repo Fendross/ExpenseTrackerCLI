@@ -1,4 +1,4 @@
-package main.java.exceptions;
+package com.fendross.expensetrackercli.exceptions;
 
 public class ViewException extends Exception {
     public ViewException(String errorMessage, Throwable err) {

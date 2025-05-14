@@ -1,4 +1,4 @@
-package main.java.exceptions;
+package com.fendross.expensetrackercli.exceptions;
 
 public class AddException extends Exception {
     public AddException(String errorMessage, Throwable err) {

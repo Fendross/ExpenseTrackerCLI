@@ -1,7 +1,7 @@
-package main.java.core.expense;
+package com.fendross.expensetrackercli.core.expense;
 
-import main.java.exceptions.AddException;
-import main.java.utils.GenericUtils;
+import com.fendross.expensetrackercli.exceptions.AddException;
+import com.fendross.expensetrackercli.utils.GenericUtils;
 
 import java.util.ArrayList;
 import java.util.Date;

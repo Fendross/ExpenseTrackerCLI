@@ -1,8 +1,8 @@
-package main.java.core.cashflowstatement;
+package com.fendross.expensetrackercli.core.cashflowstatement;
+
+import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 
 import java.util.Date;
-
-import main.java.utils.GenericUtils.TypeOfStatement;
 
 public interface CashFlowStatement {
 

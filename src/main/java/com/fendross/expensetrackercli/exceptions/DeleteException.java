@@ -1,4 +1,4 @@
-package main.java.exceptions;
+package com.fendross.expensetrackercli.exceptions;
 
 public class DeleteException extends Exception {
     public DeleteException(String errorMessage, Throwable err) {

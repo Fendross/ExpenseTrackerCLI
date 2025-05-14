@@ -1,25 +1,23 @@
-package main.java;
+package com.fendross.expensetrackercli;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import main.java.core.expense.Expense;
-import main.java.core.expense.ExpenseManager;
-import main.java.core.income.Income;
-import main.java.core.income.IncomeManager;
+import com.fendross.expensetrackercli.core.expense.Expense;
+import com.fendross.expensetrackercli.core.expense.ExpenseManager;
+import com.fendross.expensetrackercli.core.income.Income;
+import com.fendross.expensetrackercli.core.income.IncomeManager;
+import com.fendross.expensetrackercli.exceptions.AddException;
+import com.fendross.expensetrackercli.exceptions.DeleteException;
+import com.fendross.expensetrackercli.exceptions.ReportException;
+import com.fendross.expensetrackercli.exceptions.ViewException;
+import com.fendross.expensetrackercli.utils.GenericUtils;
+import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
+import com.fendross.expensetrackercli.utils.ReplUtils;
 
-import main.java.exceptions.AddException;
-import main.java.exceptions.DeleteException;
-import main.java.exceptions.ViewException;
-import main.java.exceptions.ReportException;
-
-import main.java.utils.GenericUtils;
-import main.java.utils.GenericUtils.TypeOfStatement;
-import main.java.utils.ReplUtils;
-
-import static main.java.utils.GenericUtils.numOfMandatoryAddParams;
-import static main.java.utils.GenericUtils.numOfMaximumAddParams;
+import static com.fendross.expensetrackercli.utils.GenericUtils.numOfMandatoryAddParams;
+import static com.fendross.expensetrackercli.utils.GenericUtils.numOfMaximumAddParams;
 
 public class ExpenseTrackerCLI {
 
@@ -42,12 +40,12 @@ public class ExpenseTrackerCLI {
             System.exit(1);
         }
 
-        boolean wasLastCommandHelp = false;
+        boolean needToPrintHelper = false;
 
         ReplUtils.welcomeUser();
         while (true) {
             Scanner scanner = new Scanner(System.in);
-            wasLastCommandHelp = ReplUtils.askForInput(wasLastCommandHelp);
+            needToPrintHelper = ReplUtils.askForInput(needToPrintHelper);
 
             String task = scanner.nextLine();
             ArrayList<String> commands = new ArrayList<>(List.of(task.trim().split(" ")));
@@ -59,12 +57,12 @@ public class ExpenseTrackerCLI {
                     System.exit(0);
                 case "help":
                     ReplUtils.handleHelpCommand();
-                    wasLastCommandHelp = true;
+                    needToPrintHelper = true;
                     continue;
                 case "add":
                     try {
                         handleAddCommand(commands);
-                        wasLastCommandHelp = false;
+                        needToPrintHelper = false;
                     } catch (AddException ex) {
                         System.out.println("Error while inserting: " + ex.getMessage());
                     }
@@ -72,7 +70,7 @@ public class ExpenseTrackerCLI {
                 case "delete":
                     try {
                         handleDeleteCommand(commands);
-                        wasLastCommandHelp = false;
+                        needToPrintHelper = false;
                     } catch (DeleteException ex) {
                         System.out.println("Error while deleting: " + ex.getMessage());
                     }
@@ -80,7 +78,7 @@ public class ExpenseTrackerCLI {
                 case "view":
                     try {
                         handleViewCommand();
-                        wasLastCommandHelp = false;
+                        needToPrintHelper = false;
                     } catch (ViewException ex) {
                         System.out.println("Error while visualizing sets: " + ex.getMessage());
                     }
@@ -88,7 +86,7 @@ public class ExpenseTrackerCLI {
                 case "report":
                     try {
                         handleReportCommand();
-                        wasLastCommandHelp = false;
+                        needToPrintHelper = false;
                     } catch (ReportException ex) {
                         System.out.println("Error while visualizing sets: " + ex.getMessage());
                     }
@@ -180,8 +178,8 @@ public class ExpenseTrackerCLI {
         String currency = GenericUtils.getCurrency();
         double totalFromIncomes = incomeManager.getTotalIncomesAmount();
         double totalFromExpenses = -(expenseManager.getTotalExpensesAmount());
-        double netBalance = totalFromIncomes - totalFromExpenses;
+        double netCashFlow = totalFromIncomes - totalFromExpenses;
 
-        ReplUtils.printCashFlowReport(currency, totalFromIncomes, totalFromExpenses, netBalance);
+        ReplUtils.printCashFlowReport(currency, totalFromIncomes, totalFromExpenses, netCashFlow);
     }
 }

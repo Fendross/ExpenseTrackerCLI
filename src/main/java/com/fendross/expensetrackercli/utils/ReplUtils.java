@@ -1,9 +1,7 @@
-package main.java.utils;
+package com.fendross.expensetrackercli.utils;
 
-import main.java.core.expense.ExpenseManager;
-import main.java.core.income.IncomeManager;
-
-import main.java.utils.GenericUtils.TypeOfStatement;
+import com.fendross.expensetrackercli.core.expense.ExpenseManager;
+import com.fendross.expensetrackercli.core.income.IncomeManager;
 
 public class ReplUtils {
 
@@ -18,13 +16,13 @@ public class ReplUtils {
     /**
      * Prompts the user for input and conditionally displays help instructions.
      *
-     * @param wasLastCommandHelp A flag indicating if the last command was "help".
+     * @param needToPrintHelper Indicating if there's the need to print the helper string.
      * @return {@code true} if help text was shown, otherwise {@code false}.
      */
-    public static boolean askForInput(boolean wasLastCommandHelp) {
+    public static boolean askForInput(boolean needToPrintHelper) {
         System.out.println("Please input a task down below.");
-        if (!wasLastCommandHelp) {
-            System.out.println("If unsure of what to do, simply type help.");
+        if (!needToPrintHelper) {
+            System.out.println("If unsure of what to do, simply type 'help' or 'exit' to leave the program.");
             return true;
         }
         return false;
@@ -89,14 +87,14 @@ public class ReplUtils {
      * @param currency Currency of the balance
      * @param totalFromIncomes Total amount of all incomes
      * @param totalFromExpenses Total amount of all expenses
-     * @param netBalance Net cash flow
+     * @param netCashFlow Net cash flow
      */
-    public static void printCashFlowReport(String currency, double totalFromIncomes, double totalFromExpenses, double netBalance) {
+    public static void printCashFlowReport(String currency, double totalFromIncomes, double totalFromExpenses, double netCashFlow) {
         separateBlocks();
         System.out.println("*** Cash Flow Report ***\n");
         System.out.println("* Cash Flow from Incomes: " + currency + " " + totalFromIncomes);
         System.out.println("* Cash Flow from Expenses: " + currency + " " + totalFromExpenses);
-        System.out.println("\n** Net Cash Flow: " + currency + " " + netBalance);
+        System.out.println("\n** Net Cash Flow: " + currency + " " + netCashFlow);
         separateBlocks();
     }
 
@@ -137,7 +135,7 @@ public class ReplUtils {
      *
      * @param typeOfStatement The type of statement that was added (expense or income).
      */
-    public static void handleAddSuccess(TypeOfStatement typeOfStatement) {
+    public static void handleAddSuccess(GenericUtils.TypeOfStatement typeOfStatement) {
         System.out.println("Successfully added " + typeOfStatement.name().toLowerCase() + " statement with id: " + GenericUtils.getCurrentGlobalId() + ".");
 
         separateBlocks();
@@ -158,6 +156,6 @@ public class ReplUtils {
      * Prints a visual separator for improving console readability.
      */
     public static void separateBlocks() {
-        System.out.println("======================");
+        System.out.println("================================================================");
     }
 }

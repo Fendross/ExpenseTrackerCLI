@@ -1,4 +1,4 @@
-package main.java.utils;
+package com.fendross.expensetrackercli.utils;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -12,7 +12,7 @@ public class GenericUtils {
     public static int numOfMandatoryAddParams = 4;
     public static int numOfMaximumAddParams = 6;
 
-    // Format main.java.utils.
+    // Format main.java.com.fendross.expensetrackercli.utils.
     public static DecimalFormat df = new DecimalFormat("#0.00");
     public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 

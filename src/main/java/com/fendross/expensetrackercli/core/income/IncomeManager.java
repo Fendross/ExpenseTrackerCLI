@@ -1,13 +1,14 @@
-package main.java.core.income;
+package com.fendross.expensetrackercli.core.income;
 
-import main.java.exceptions.AddException;
-import main.java.utils.GenericUtils;
+
+import com.fendross.expensetrackercli.exceptions.AddException;
+import com.fendross.expensetrackercli.utils.GenericUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class IncomeManager {
-    public ArrayList<Income> incomes = new ArrayList<>();
+    public ArrayList<Income> incomes = new ArrayList<Income>();
     public IncomeManager() {}
 
     public ArrayList<Income> getIncomes() {
