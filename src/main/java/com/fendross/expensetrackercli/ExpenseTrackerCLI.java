@@ -1,6 +1,5 @@
 package com.fendross.expensetrackercli;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,17 +41,30 @@ public class ExpenseTrackerCLI {
             System.exit(1);
         }
 
+        boolean wasFileCreated;
         boolean needToPrintHelper = false;
-        boolean wasFileCreated = false;
 
-        // TODO Load statements from csv.
+        FsManager fsManager = new FsManager();
         try {
-            FsManager fsManager = new FsManager();
             wasFileCreated = fsManager.initFsManager();
             if (wasFileCreated) {
                 ReplUtils.handleFileCreation(fsManager.getCsvPath());
             }
         } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            System.exit(1);
+        }
+
+        try {
+            fsManager.loadStatementsFromFile(expenseManager, incomeManager);
+        } catch (FsException ex) {
+            System.out.println(ex.getMessage());
+            System.exit(1);
+        }
+
+        try {
+            fsManager.writeStatement("add,expense,100,flight\n");
+        } catch (FsException ex) {
             System.out.println(ex.getMessage());
             System.exit(1);
         }
