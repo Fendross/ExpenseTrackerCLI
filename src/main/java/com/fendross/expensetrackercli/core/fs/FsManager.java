@@ -2,6 +2,7 @@ package com.fendross.expensetrackercli.core.fs;
 
 import com.fendross.expensetrackercli.core.expense.ExpenseManager;
 import com.fendross.expensetrackercli.core.income.IncomeManager;
+import com.fendross.expensetrackercli.exceptions.AddException;
 import com.fendross.expensetrackercli.exceptions.FsException;
 
 import java.io.*;
@@ -23,17 +24,46 @@ public class FsManager {
         return false;
     }
 
+    /**
+     * Loads statements, if they exist already in file, in the appropriate data structure, so they can be worked on.
+     *
+     * @param expenseManager Expense manager from main.
+     * @param incomeManager Income manager from main.
+     * @throws FsException Error in reading from file or IO miscellaneous.
+     */
     public void loadStatementsFromFile(ExpenseManager expenseManager, IncomeManager incomeManager) throws FsException {
         ArrayList<String> statements = getStatementsFromFile();
-        for (String s: statements) {
-            System.out.println(s);
+        if (statements.size() > 0) {
+            for (String statement: statements) {
+                ArrayList<String> cfs = new ArrayList<>();
+                for (String item: statement.split(",")) {
+                    cfs.add(item);
+                }
+                String typeOfStatement = cfs.get(1);
+
+                if (typeOfStatement.equals("expense")) {
+                    try {
+                        expenseManager.addExpense(cfs);
+                    } catch (AddException ex) {
+                        throw new FsException("Error adding expense from file. Aborting.", ex);
+                    }
+                } else if (typeOfStatement.equals("income")) {
+                    try {
+                        incomeManager.addIncome(cfs);
+                    } catch (AddException ex) {
+                        throw new FsException("Error adding income from file. Aborting.", ex);
+                    }
+                } else {
+                    throw new FsException("Unrecognized type of statement. Aborting.", new Throwable());
+                }
+            }
         }
     }
 
     public ArrayList<String> getStatementsFromFile() throws FsException {
         ArrayList<String> statements = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(this.file))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(getFile()))) {
             String line;
             while ((line = br.readLine()) != null) {
                 statements.add(line);
@@ -47,8 +77,14 @@ public class FsManager {
         return statements;
     }
 
+    /**
+     * Loads statements in the appropriate data structures, so they can be worked on.
+     *
+     * @param statement A string containing a statement to be added.
+     * @throws FsException Error in writing to file or IO miscellaneous.
+     */
     public void writeStatement(String statement) throws FsException {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.file))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(getFile(), true))) {
             bw.append(statement);
         } catch (FileNotFoundException ex) {
             throw new FsException("File was not found.", ex);

@@ -62,12 +62,13 @@ public class ExpenseTrackerCLI {
             System.exit(1);
         }
 
-        try {
-            fsManager.writeStatement("add,expense,100,flight\n");
-        } catch (FsException ex) {
-            System.out.println(ex.getMessage());
-            System.exit(1);
-        }
+//        // TODO this block is just for testing. Remove it.
+//        try {
+//            fsManager.writeStatement("add,expense,100,whatever\n");
+//        } catch (FsException ex) {
+//            System.out.println(ex.getMessage());
+//            System.exit(1);
+//        }
 
         ReplUtils.welcomeUser();
         while (true) {
