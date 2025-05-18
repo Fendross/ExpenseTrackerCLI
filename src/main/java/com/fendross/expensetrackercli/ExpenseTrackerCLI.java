@@ -1,5 +1,7 @@
 package com.fendross.expensetrackercli;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,11 +10,9 @@ import com.fendross.expensetrackercli.core.expense.Expense;
 import com.fendross.expensetrackercli.core.expense.ExpenseManager;
 import com.fendross.expensetrackercli.core.income.Income;
 import com.fendross.expensetrackercli.core.income.IncomeManager;
+import com.fendross.expensetrackercli.core.fs.FsManager;
 
-import com.fendross.expensetrackercli.exceptions.AddException;
-import com.fendross.expensetrackercli.exceptions.DeleteException;
-import com.fendross.expensetrackercli.exceptions.ReportException;
-import com.fendross.expensetrackercli.exceptions.ViewException;
+import com.fendross.expensetrackercli.exceptions.*;
 
 import com.fendross.expensetrackercli.utils.GenericUtils;
 import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
@@ -43,6 +43,19 @@ public class ExpenseTrackerCLI {
         }
 
         boolean needToPrintHelper = false;
+        boolean wasFileCreated = false;
+
+        // TODO Load statements from csv.
+        try {
+            FsManager fsManager = new FsManager();
+            wasFileCreated = fsManager.initFsManager();
+            if (wasFileCreated) {
+                ReplUtils.handleFileCreation(fsManager.getCsvPath());
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            System.exit(1);
+        }
 
         ReplUtils.welcomeUser();
         while (true) {

@@ -9,7 +9,7 @@ public class ReplUtils {
      * Prints a welcome message to the user upon starting the application.
      */
     public static void welcomeUser() {
-        System.out.println("** ExpenseTrackerCLI - Manage your cash flow statements **");
+        System.out.println("*** ExpenseTrackerCLI - Manage your cash flow statements ***");
         separateBlocks();
     }
 
@@ -57,6 +57,17 @@ public class ReplUtils {
      */
     public static void printIncomes(IncomeManager incomeManager) {
         System.out.println("List of Incomes: \n" + incomeManager.toString());
+    }
+
+    /**
+     * Informs the user that a csv was created.
+     *
+     * @param csvPath The relative path for the csv.
+     */
+    public static void handleFileCreation(String csvPath) {
+        System.out.println("NOTICE: a new csv in " + csvPath + " was created.");
+
+        separateBlocks();
     }
 
     /**
