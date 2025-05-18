@@ -19,7 +19,6 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +28,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
-//@ExtendWith(MockitoExtension.class)
 class ExpenseTrackerCLITest {
 
     @Mock
@@ -55,7 +53,7 @@ class ExpenseTrackerCLITest {
         // Find and store the original ExpenseManager instance
         Field expenseManagerField = ExpenseTrackerCLI.class.getDeclaredField("expenseManager");
         expenseManagerField.setAccessible(true);
-        Object originalExpenseManager = expenseManagerField.get(null); // null since it's static
+        Object originalExpenseManager = expenseManagerField.get(null);
 
         // Inject our mock
         expenseManagerField.set(null, mockExpenseManager);
@@ -72,12 +70,95 @@ class ExpenseTrackerCLITest {
             genericUtilsMock.when(GenericUtils::getNumOfMandatoryAddParams).thenReturn(4);
             genericUtilsMock.when(GenericUtils::getNumOfMaximumAddParams).thenReturn(6);
 
-            // Act
+            // Act.
             ExpenseTrackerCLI.handleAddCommand(commands);
 
-            // Assert
+            // Assert.
             verify(mockExpenseManager, times(1)).addExpense(commands);
             replUtilsMock.verify(() -> ReplUtils.handleAddSuccess(GenericUtils.TypeOfStatement.EXPENSE));
+        } finally {
+            // Restore original ExpenseManager
+            expenseManagerField.set(null, originalExpenseManager);
+        }
+
+    }
+
+    @Test
+    void handleAddCommand_IncomeWithValidParams_Success() throws AddException, IllegalAccessException, NoSuchFieldException {
+
+        // Arrange
+        ArrayList<String> commands = new ArrayList<>(Arrays.asList("add", "income", "100", "Travel", "Flight", "Bruxelles"));
+
+        // Create the mock
+        IncomeManager mockIncomeManager = mock(IncomeManager.class);
+
+        // Find and store the original ExpenseManager instance
+        Field incomeManagerField = ExpenseTrackerCLI.class.getDeclaredField("incomeManager");
+        incomeManagerField.setAccessible(true);
+        Object originalIncomeManager = incomeManagerField.get(null);
+
+        // Inject our mock
+        incomeManagerField.set(null, mockIncomeManager);
+
+        try (MockedStatic<GenericUtils> genericUtilsMock = Mockito.mockStatic(GenericUtils.class);
+             MockedStatic<ReplUtils> replUtilsMock = Mockito.mockStatic(ReplUtils.class)) {
+
+            // Mock static method
+            genericUtilsMock.when(() -> GenericUtils.fetchTypeOfStatement(any()))
+                    .thenReturn(GenericUtils.TypeOfStatement.INCOME);
+
+            // For static fields, we need to mock the method that GETS these values
+            // instead of trying to directly mock the fields
+            genericUtilsMock.when(GenericUtils::getNumOfMandatoryAddParams).thenReturn(4);
+            genericUtilsMock.when(GenericUtils::getNumOfMaximumAddParams).thenReturn(6);
+
+            // Act.
+            ExpenseTrackerCLI.handleAddCommand(commands);
+
+            // Assert.
+            verify(mockIncomeManager, times(1)).addIncome(commands);
+            replUtilsMock.verify(() -> ReplUtils.handleAddSuccess(GenericUtils.TypeOfStatement.INCOME));
+        } finally {
+            // Restore original ExpenseManager
+            incomeManagerField.set(null, originalIncomeManager);
+        }
+
+    }
+
+    @Test
+    void handleAddCommand_ExpenseWithNotEnoughParams_Failure() throws AddException, IllegalAccessException, NoSuchFieldException {
+
+        // Arrange
+        ArrayList<String> commands = new ArrayList<>(Arrays.asList("add", "expense"));
+
+        // Create the mock
+        ExpenseManager mockExpenseManager = mock(ExpenseManager.class);
+
+        // Find and store the original ExpenseManager instance
+        Field expenseManagerField = ExpenseTrackerCLI.class.getDeclaredField("expenseManager");
+        expenseManagerField.setAccessible(true);
+        Object originalExpenseManager = expenseManagerField.get(null);
+
+        // Inject our mock
+        expenseManagerField.set(null, mockExpenseManager);
+
+        try (MockedStatic<GenericUtils> genericUtilsMock = Mockito.mockStatic(GenericUtils.class);
+             MockedStatic<ReplUtils> replUtilsMock = Mockito.mockStatic(ReplUtils.class)) {
+
+            // Mock static method
+            genericUtilsMock.when(() -> GenericUtils.fetchTypeOfStatement(any()))
+                    .thenReturn(GenericUtils.TypeOfStatement.EXPENSE);
+
+            // For static fields, we need to mock the method that GETS these values
+            // instead of trying to directly mock the fields
+            genericUtilsMock.when(GenericUtils::getNumOfMandatoryAddParams).thenReturn(4);
+            genericUtilsMock.when(GenericUtils::getNumOfMaximumAddParams).thenReturn(6);
+
+            // Act.
+            ExpenseTrackerCLI.handleAddCommand(commands);
+
+            // Assert.
+            replUtilsMock.verify(() -> ReplUtils.handleNotEnoughMandatoryParams());
         } finally {
             // Restore original ExpenseManager
             expenseManagerField.set(null, originalExpenseManager);
