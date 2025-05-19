@@ -64,7 +64,7 @@ public class ExpenseTrackerCLI {
 
 //        // TODO this block is just for testing. Remove it.
 //        try {
-//            fsManager.writeStatement("add,expense,100,whatever\n");
+//            fsManager.writeStatement(fsManager.getFile(), "add,expense,100,whatever\n");
 //        } catch (FsException ex) {
 //            System.out.println(ex.getMessage());
 //            System.exit(1);
@@ -117,6 +117,14 @@ public class ExpenseTrackerCLI {
                         needToPrintHelper = false;
                     } catch (ReportException ex) {
                         System.out.println("Error while visualizing sets: " + ex.getMessage());
+                    }
+                    break;
+                case "clear":
+                    try {
+                        handleClearCommand(fsManager);
+                        needToPrintHelper = false;
+                    } catch (FsException ex) {
+                        System.out.println("Error while clearing csv file: " + ex.getMessage());
                     }
                     break;
                 default:
@@ -196,7 +204,7 @@ public class ExpenseTrackerCLI {
      * Handles the "report" command by retrieving/calculating all needed values and calling
      * printCashFlowReport from ReplUtils class.
      *
-     * @throws ReportException Placeholder exception for future implementation.
+     * @throws ReportException If there are no statements to report.
      */
     public static void handleReportCommand() throws ReportException {
         if (expenseManager.getExpensesSize() == 0 && incomeManager.getIncomesSize() == 0) {
@@ -209,5 +217,33 @@ public class ExpenseTrackerCLI {
         double netCashFlow = totalFromIncomes - totalFromExpenses;
 
         ReplUtils.printCashFlowReport(currency, totalFromIncomes, totalFromExpenses, netCashFlow);
+    }
+
+    /**
+     * Handles the "clear" command by deleting data/cash_flow_statements.csv file and creating a fresh version.
+     * Before doing so, it creates a backup in data/archive.
+     *
+     * @throws FsException If there have been issues in clearing file.
+     */
+    public static void handleClearCommand(FsManager fsManager) throws FsException {
+        // Backup management.
+        try {
+            fsManager.backupFile();
+        } catch (IOException ex) {
+            throw new FsException("A backup file could not be created.", ex);
+        }
+
+        // Clearing and recreating file if successful.
+        if (fsManager.clearFile()) {
+            try {
+                fsManager.initFsManager();
+            } catch (IOException ex) {
+                throw new FsException("File could not be created again.", ex);
+            }
+        } else {
+            throw new FsException("There have been issues clearing the file.", new Throwable());
+        }
+
+        ReplUtils.printClearSuccess(fsManager);
     }
 }

@@ -1,6 +1,7 @@
 package com.fendross.expensetrackercli.utils;
 
 import com.fendross.expensetrackercli.core.expense.ExpenseManager;
+import com.fendross.expensetrackercli.core.fs.FsManager;
 import com.fendross.expensetrackercli.core.income.IncomeManager;
 
 public class ReplUtils {
@@ -57,6 +58,12 @@ public class ReplUtils {
      */
     public static void printIncomes(IncomeManager incomeManager) {
         System.out.println("List of Incomes: \n" + incomeManager.toString());
+    }
+
+    public static void printClearSuccess(FsManager fsManager) {
+        System.out.println("The file was successfully cleared, after creating a backup copy: " + fsManager.getBackupPath() + ".");
+
+        separateBlocks();
     }
 
     /**

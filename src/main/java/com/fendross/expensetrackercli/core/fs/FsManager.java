@@ -12,6 +12,7 @@ public class FsManager {
 
     File file;
     private final String csvPath = "data/cash_flow_statements.csv";
+    private final String backupPath = "data/archive/bkp_cash_flow_statements.csv";
 
     public FsManager() {}
 
@@ -83,9 +84,10 @@ public class FsManager {
      * @param statement A string containing a statement to be added.
      * @throws FsException Error in writing to file or IO miscellaneous.
      */
-    public void writeStatement(String statement) throws FsException {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(getFile(), true))) {
+    public void writeStatement(File file, String statement) throws FsException {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
             bw.append(statement);
+            bw.newLine();
         } catch (FileNotFoundException ex) {
             throw new FsException("File was not found.", ex);
         } catch (IOException ex) {
@@ -93,8 +95,26 @@ public class FsManager {
         }
     }
 
+    public void backupFile() throws FsException, IOException {
+        File backupFile = new File(backupPath);
+        if (!backupFile.exists()) {
+            backupFile.createNewFile();
+        }
+        for (String statement: getStatementsFromFile()) {
+            writeStatement(backupFile, statement);
+        }
+    }
+
+    public boolean clearFile() {
+        return this.file.delete();
+    }
+
     public File getFile() {
         return this.file;
+    }
+
+    public String getBackupPath() {
+        return this.backupPath;
     }
 
     public String getCsvPath() {
