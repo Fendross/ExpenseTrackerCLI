@@ -34,6 +34,7 @@ public class FsManager {
      */
     public void loadStatementsFromFile(ExpenseManager expenseManager, IncomeManager incomeManager) throws FsException {
         ArrayList<String> statements = getStatementsFromFile();
+        // TODO make this if exclusive. Also, refactor the algorithm.
         if (statements.size() > 0) {
             for (String statement: statements) {
                 ArrayList<String> cfs = new ArrayList<>();

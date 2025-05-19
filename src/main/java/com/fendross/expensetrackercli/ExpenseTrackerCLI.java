@@ -144,6 +144,7 @@ public class ExpenseTrackerCLI {
      * @throws AddException If the command is malformed or the addition fails.
      */
     public static void handleAddCommand(ArrayList<String> commands) throws AddException {
+        // TODO also add in file.
         TypeOfStatement typeOfStatement = GenericUtils.fetchTypeOfStatement(commands);
         if (typeOfStatement == TypeOfStatement.UNRECOGNIZED) {
             ReplUtils.handleWrongTypeOfStatement();
@@ -169,6 +170,7 @@ public class ExpenseTrackerCLI {
      * @throws DeleteException If the ID is missing, invalid, or not found.
      */
     public static void handleDeleteCommand(ArrayList<String> commands) throws DeleteException {
+        // TODO delete also from file.
         int idFromCommands;
         try {
             idFromCommands = Integer.parseInt(commands.get(1));

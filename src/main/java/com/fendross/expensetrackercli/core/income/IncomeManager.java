@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class IncomeManager {
-    public ArrayList<Income> incomes = new ArrayList<Income>();
+    public ArrayList<Income> incomes = new ArrayList<>();
     public IncomeManager() {}
 
     public ArrayList<Income> getIncomes() {
