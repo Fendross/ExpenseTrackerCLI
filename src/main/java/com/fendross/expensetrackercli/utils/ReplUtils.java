@@ -30,6 +30,17 @@ public class ReplUtils {
     }
 
     /**
+     * Asks user if he wants to proceed with the command he previously entered.
+     * The string negativeStatements, from GenericUtils constants, represents the choices the user has.
+     *
+     * @param negativeStatements A string representing all possible ways to express dissent.
+     */
+    public static void askUserForConfirmation(String negativeStatements) {
+        System.out.println("Are you sure you want to proceed with the previous command?");
+        System.out.println("Type one of the following to escape it:\n" + negativeStatements);
+    }
+
+    /**
      * Displays all current expense and income statements using the provided managers.
      *
      * @param expenseManager The ExpenseManager instance managing expense records.
@@ -60,8 +71,19 @@ public class ReplUtils {
         System.out.println("List of Incomes: \n" + incomeManager.toString());
     }
 
-    public static void printClearSuccess(FsManager fsManager) {
-        System.out.println("The file was successfully cleared, after creating a backup copy: " + fsManager.getBackupPath() + ".");
+    /**
+     * Informs the user that the clear command finished successfully.
+     *
+     * @param backupPath backup file path.
+     */
+    public static void printClearSuccess(String backupPath) {
+        System.out.println("The file was successfully cleared, after creating a backup copy: " + backupPath + ".");
+
+        separateBlocks();
+    }
+
+    public static void printDenial() {
+        System.out.println("Command was not executed.");
 
         separateBlocks();
     }

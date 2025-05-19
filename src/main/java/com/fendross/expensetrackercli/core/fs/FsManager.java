@@ -97,6 +97,7 @@ public class FsManager {
 
     public void backupFile() throws FsException, IOException {
         File backupFile = new File(backupPath);
+        backupFile.delete();
         if (!backupFile.exists()) {
             backupFile.createNewFile();
         }

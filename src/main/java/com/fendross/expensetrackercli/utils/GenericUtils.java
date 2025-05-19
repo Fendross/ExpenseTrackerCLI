@@ -11,6 +11,7 @@ public class GenericUtils {
     public static boolean hasBeenInitialized = false;
     public static int numOfMandatoryAddParams = 4;
     public static int numOfMaximumAddParams = 6;
+    public static final String negativeResponses = "n,no,false,quit,del,delete";
 
     // Format main.java.com.fendross.expensetrackercli.utils.
     public static DecimalFormat df = new DecimalFormat("#0.00");
@@ -39,6 +40,10 @@ public class GenericUtils {
         UNRECOGNIZED
     }
 
+    public static String getNegativeResponses() {
+        return negativeResponses;
+    }
+
     /**
      * Determines the type of statement (income or expense) based on the user command.
      *
@@ -55,6 +60,19 @@ public class GenericUtils {
         } else {
             return TypeOfStatement.UNRECOGNIZED;
         }
+    }
+
+    /**
+     * @param check Input string from user.
+     * @return true if user wants to quit, false otherwise.
+     */
+    public static boolean isClearingDenied(String check) {
+        for (String s: negativeResponses.split(",")) {
+            if (check.toLowerCase().equals(s)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

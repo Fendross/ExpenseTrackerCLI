@@ -1,6 +1,7 @@
 package com.fendross.expensetrackercli;
 
 import java.io.IOException;
+import java.lang.reflect.GenericSignatureFormatError;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -120,6 +121,14 @@ public class ExpenseTrackerCLI {
                     }
                     break;
                 case "clear":
+                    // Ask user for further confirmation.
+                    ReplUtils.askUserForConfirmation(GenericUtils.getNegativeResponses());
+                    String wishesToClear = scanner.nextLine();
+                    if (GenericUtils.isClearingDenied(wishesToClear)) {
+                        ReplUtils.printDenial();
+                        continue;
+                    }
+
                     try {
                         handleClearCommand(fsManager);
                         needToPrintHelper = false;
@@ -244,6 +253,6 @@ public class ExpenseTrackerCLI {
             throw new FsException("There have been issues clearing the file.", new Throwable());
         }
 
-        ReplUtils.printClearSuccess(fsManager);
+        ReplUtils.printClearSuccess(fsManager.getBackupPath());
     }
 }
