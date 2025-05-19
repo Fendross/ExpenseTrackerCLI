@@ -59,6 +59,9 @@ Prints a minimal cash flow report, showing (with the appropriate currency):
 ### `help`
 Prints a mini guide on how to use the CLI.
 
+### `clear`
+Clears the file `data/cash_flow_statements.csv` after creating a backup `data/archive/bkp_cash_flow_statements.csv`.
+
 ### `exit`
 Terminates the execution.
 
