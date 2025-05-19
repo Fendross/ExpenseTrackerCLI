@@ -1,7 +1,6 @@
 package com.fendross.expensetrackercli;
 
 import java.io.IOException;
-import java.lang.reflect.GenericSignatureFormatError;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -33,7 +32,7 @@ public class ExpenseTrackerCLI {
      * The main entry point of the Expense Tracker CLI application.
      * It initializes the REPL loop and handles user commands.
      *
-     * @param args command-line arguments (currently expects none)
+     * @param args command-line arguments (currently expects none).
      */
     public static void main(String[] args) {
         int expectedArgs = 0;
@@ -45,6 +44,7 @@ public class ExpenseTrackerCLI {
         boolean wasFileCreated;
         boolean needToPrintHelper = false;
 
+        // File creation.
         FsManager fsManager = new FsManager();
         try {
             wasFileCreated = fsManager.initFsManager();
@@ -56,6 +56,7 @@ public class ExpenseTrackerCLI {
             System.exit(1);
         }
 
+        // Load file statements into DS.
         try {
             fsManager.loadStatementsFromFile(expenseManager, incomeManager);
         } catch (FsException ex) {
@@ -63,14 +64,7 @@ public class ExpenseTrackerCLI {
             System.exit(1);
         }
 
-//        // TODO this block is just for testing. Remove it.
-//        try {
-//            fsManager.writeStatement(fsManager.getFile(), "add,expense,100,whatever\n");
-//        } catch (FsException ex) {
-//            System.out.println(ex.getMessage());
-//            System.exit(1);
-//        }
-
+        // Main loop.
         ReplUtils.welcomeUser();
         while (true) {
             Scanner scanner = new Scanner(System.in);
