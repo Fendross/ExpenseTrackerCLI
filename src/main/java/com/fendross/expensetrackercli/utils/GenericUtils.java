@@ -13,7 +13,7 @@ public class GenericUtils {
     public static int numOfMaximumAddParams = 6;
     public static final String negativeResponses = "n,no,false,quit,del,delete";
 
-    // Format main.java.com.fendross.expensetrackercli.utils.
+    // Format utils.
     public static DecimalFormat df = new DecimalFormat("#0.00");
     public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
