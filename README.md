@@ -24,7 +24,8 @@ After launching the CLI, interact with the application using the commands descri
 ## Supported Commands
 
 Refer to the following functionalities.
-**Notice**: parameters must be separated by a single whitespace in between them.
+> [!IMPORTANT]
+> Parameters must be separated by a single whitespace in between them.
 
 ### `add` 
 Append to the appropriate data structures the cash flow statement specified.
