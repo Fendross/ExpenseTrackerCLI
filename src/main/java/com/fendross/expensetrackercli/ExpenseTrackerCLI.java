@@ -2,7 +2,9 @@ package com.fendross.expensetrackercli;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -47,9 +49,16 @@ public class ExpenseTrackerCLI {
         // TODO switch file system logic with DB logic.
         // Testing DB connection.
         Connection conn;
+        DatabaseManager.initDb();
         try {
             conn = DatabaseManager.getConnection();
-            conn.createStatement();
+
+            Statement stmt = conn.createStatement();
+            stmt.execute("select * from tb_cash_flows");
+            
+            ResultSet rs = stmt.getResultSet();
+            System.out.println(rs.getInt("id"));
+            System.out.println(rs.getString("cf_type"));
         } catch (SQLException ex) {
             System.err.println("While opening DB connection: " + ex.getMessage());
         }

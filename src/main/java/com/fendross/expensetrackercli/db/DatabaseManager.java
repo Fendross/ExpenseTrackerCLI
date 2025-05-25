@@ -25,4 +25,24 @@ public class DatabaseManager {
             System.out.println("Error closing the DB connection: " + ex.getMessage());
         }
     }
+
+    public static void initDb() {
+        try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
+            String createTbCashFlow =
+                    "CREATE TABLE IF NOT EXISTS tb_cash_flows (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "cf_type TEXT, " +
+                    "amount REAL NOT NULL, " +
+                    "cf_date TEXT NOT NULL, " +
+                    "category TEXT, " +
+                    "description TEXT" +
+                    ");";
+            stmt.execute(createTbCashFlow);
+
+            // TO BE REMOVED.
+            stmt.execute("INSERT INTO tb_cash_flows VALUES(1, 'EXPENSE', 300, '2025-05-24', 'Miscellaneous', 'Night out')");
+        } catch (SQLException ex) {
+            System.err.println("Error during DB initialization: " + ex.getMessage());
+        }
+    }
 }
