@@ -2,3 +2,6 @@
 out/
 .idea/
 target/
+
+# DB File
+*.db
