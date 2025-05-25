@@ -9,7 +9,7 @@ MAIN_CLASS=com.fendross.expensetrackercli.ExpenseTrackerCLI
 echo "================================================================"
 
 if [ -f $TARGET_JAR ]; then
-  java -cp $TARGET_JAR $MAIN_CLASS
+  java --enable-native-access=ALL-UNNAMED -cp $TARGET_JAR $MAIN_CLASS
 else
   echo "ERROR: JAR not found."
 fi

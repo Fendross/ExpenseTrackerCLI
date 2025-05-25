@@ -1,6 +1,8 @@
 package com.fendross.expensetrackercli;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +13,7 @@ import com.fendross.expensetrackercli.core.income.Income;
 import com.fendross.expensetrackercli.core.income.IncomeManager;
 import com.fendross.expensetrackercli.core.fs.FsManager;
 
+import com.fendross.expensetrackercli.db.DatabaseManager;
 import com.fendross.expensetrackercli.exceptions.*;
 
 import com.fendross.expensetrackercli.utils.GenericUtils;
@@ -40,6 +43,18 @@ public class ExpenseTrackerCLI {
             System.out.println("Too many arguments. Expected arguments: " + expectedArgs);
             System.exit(1);
         }
+
+        // TODO switch file system logic with DB logic.
+        // Testing DB connection.
+        Connection conn;
+        try {
+            conn = DatabaseManager.getConnection();
+            conn.createStatement();
+        } catch (SQLException ex) {
+            System.err.println("While opening DB connection: " + ex.getMessage());
+        }
+        DatabaseManager.closeConnection();
+        System.exit(0);
 
         boolean wasFileCreated;
         boolean needToPrintHelper = false;
