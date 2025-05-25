@@ -1,7 +1,8 @@
-# Directories
+# Directories.
 out/
 .idea/
 target/
 
-# DB File
+# Files.
 *.db
+.DS_STORE
