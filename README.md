@@ -1,5 +1,8 @@
 # _ExpenseTrackerCLI_
 
+> [!NOTE]
+> This is a WIP project. Its purpose would be that to manage one's finances without having to fiddle around with an Excel.
+
 ## Overview
 
 A simple Java CLI application to manage expenses.
@@ -23,9 +26,10 @@ After launching the CLI, interact with the application using the commands descri
 
 ## Supported Commands
 
-Refer to the following functionalities.
-> [!IMPORTANT]
+Refer to the menu the application displays at the start.
+> [!CAUTION]
 > Parameters must be separated by a single whitespace in between them.
+> I'm also not removing specs below for now, since the full refactoring is still taking place.
 
 ### `add` 
 Append to the appropriate data structures the cash flow statement specified.
@@ -70,4 +74,4 @@ Terminates the execution.
 ## References
 
 - [Cash Flow Statement definition](https://en.wikipedia.org/wiki/Cash_flow_statement)
-- [Build a simple main.java.com.fendross.expensetrackercli.core.expense.Expense Tracker CLI](https://roadmap.sh/projects/expense-tracker)
+- [Build a simple Expense Tracker CLI](https://roadmap.sh/projects/expense-tracker)
