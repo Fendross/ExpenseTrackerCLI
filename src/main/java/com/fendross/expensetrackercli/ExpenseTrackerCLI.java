@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -66,7 +67,6 @@ public class ExpenseTrackerCLI {
             }
             System.out.println();
 
-            // TODO switch file system logic with DB logic.
             // Testing DB connection.
             Connection conn;
             CashFlowStatement cfs = new CashFlowStatement(
@@ -132,9 +132,9 @@ public class ExpenseTrackerCLI {
             System.out.println(input);
             try {
                 String parsedInput = scanner.nextLine();
-                return LocalDate.parse(parsedInput, GenericUtils.dtf);
-            } catch (NumberFormatException ex) {
-                System.out.println("Invalid input: an integer is required. Please try again.");
+                return LocalDate.parse(parsedInput, GenericUtils.getDtf());
+            } catch (DateTimeParseException ex) {
+                System.out.println("Invalid input: a date in the format 'yyyy-MM-dd' is required. Please try again.");
             }
         }
     }
