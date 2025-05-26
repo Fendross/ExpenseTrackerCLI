@@ -41,6 +41,14 @@ public class CashFlowStatement {
         this.id = id;
     }
 
+    // ID.
+    public TypeOfStatement getCfType() {
+        return this.cfType;
+    }
+    public void setCfType(TypeOfStatement cfType) {
+        this.cfType = cfType;
+    }
+
     // Amount.
     public double getAmount() {
         return this.amount;
@@ -49,7 +57,7 @@ public class CashFlowStatement {
         this.amount = amount;
     }
 
-    // DateOfStatement.
+    // CfDate.
     public LocalDate getCfDate() {
         return this.cfDate;
     }

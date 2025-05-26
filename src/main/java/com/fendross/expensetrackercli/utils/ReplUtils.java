@@ -6,11 +6,22 @@ import com.fendross.expensetrackercli.core.income.IncomeManager;
 public class ReplUtils {
 
     /**
-     * Prints a welcome message to the user upon starting the application.
+     * Displays a list of possible inputs to the user.
      */
-    public static void welcomeUser() {
-        System.out.println("*** ExpenseTrackerCLI - Manage your cash flow statements ***");
-        separateBlocks();
+    public static void displayMenu() {
+        System.out.println("======= ExpenseTrackerCLI - Manage your financial situation =======");
+        System.out.println("1 - View All Cash Flow Statements.");
+        System.out.println("2 - Add a New Cash Flow Statement.");
+        System.out.println("3 - Delete a Cash Flow Statement.");
+        System.out.println("0 - Exit the program.");
+        System.out.println("===================================================================");
+    }
+
+    /**
+     * Says goodbye to user upon selecting to exit the program.
+     */
+    public static void sayGoodbye() {
+        System.out.println("See you next time!");
     }
 
     /**
@@ -195,6 +206,6 @@ public class ReplUtils {
      * Prints a visual separator for improving console readability.
      */
     public static void separateBlocks() {
-        System.out.println("================================================================");
+        System.out.println("===================================================================");
     }
 }

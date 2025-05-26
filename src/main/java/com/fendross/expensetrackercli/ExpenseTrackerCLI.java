@@ -8,7 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
 
+import com.fendross.expensetrackercli.core.cashflowstatement.CashFlowStatement;
+import com.fendross.expensetrackercli.core.cashflowstatement.CashFlowStatementDAO;
 import com.fendross.expensetrackercli.core.expense.Expense;
 import com.fendross.expensetrackercli.core.expense.ExpenseManager;
 import com.fendross.expensetrackercli.core.income.Income;
@@ -26,6 +29,115 @@ import static com.fendross.expensetrackercli.utils.GenericUtils.numOfMandatoryAd
 import static com.fendross.expensetrackercli.utils.GenericUtils.numOfMaximumAddParams;
 
 public class ExpenseTrackerCLI {
+    private final CashFlowStatementDAO cfsDAO;
+    private final Scanner scanner;
+
+    public ExpenseTrackerCLI() {
+        this.cfsDAO = new CashFlowStatementDAO();
+        this.scanner = new Scanner(System.in);
+
+        DatabaseManager.initDb();
+    }
+
+    public void run() {
+        boolean running = true;
+
+        while (running) {
+            ReplUtils.displayMenu();
+            int choice = getIntValue("Enter your choice: ");
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Chose to view all statements. TO BE IMPLEMENTED.");
+                    break;
+                case 2:
+                    System.out.println("Chose to insert a statement. TO BE IMPLEMENTED.");
+                    break;
+                case 3:
+                    System.out.println("Chose to delete a statement. TO BE IMPLEMENTED.");
+                    break;
+                case 0:
+                    running = false;
+                    ReplUtils.sayGoodbye();
+                    break;
+                default:
+                    System.out.println("Unknown command. Refer to the menu list to make a suitable choice.");
+                    break;
+            }
+            System.out.println();
+
+            // TODO switch file system logic with DB logic.
+            // Testing DB connection.
+            Connection conn;
+            CashFlowStatement cfs = new CashFlowStatement(
+                    TypeOfStatement.EXPENSE,
+                    300,
+                    LocalDate.now(),
+                    "Travel",
+                    "To Bruxelles"
+            );
+            try {
+                cfsDAO.addCashFlowStatement(cfs);
+
+                conn = DatabaseManager.getConnection();
+
+                Statement stmt = conn.createStatement();
+                stmt.execute("select * from cash_flows");
+
+                ResultSet rs = stmt.getResultSet();
+                System.out.println(rs.getInt("id"));
+                System.out.println(rs.getString("cf_type"));
+                System.out.println(rs.getDouble("amount"));
+                System.out.println(rs.getString("cf_date"));
+                System.out.println(rs.getString("category"));
+                System.out.println(rs.getString("description"));
+            } catch (SQLException ex) {
+                System.err.println("While opening DB connection: " + ex.getMessage());
+                System.exit(1);
+            }
+            DatabaseManager.closeConnection();
+            DatabaseManager.dropDb();
+            running = false;
+        }
+
+        System.exit(0);
+    }
+
+    private int getIntValue(String input) {
+        while (true) {
+            System.out.println(input);
+            try {
+                String parsedInput = scanner.nextLine();
+                return Integer.parseInt(parsedInput);
+            } catch (NumberFormatException ex) {
+                System.out.println("Invalid input: an integer is required. Please try again.");
+            }
+        }
+    }
+
+    private double getDoubleValue(String input) {
+        while (true) {
+            System.out.println(input);
+            try {
+                String parsedInput = scanner.nextLine();
+                return Double.parseDouble(parsedInput);
+            } catch (NumberFormatException ex) {
+                System.out.println("Invalid input: an integer is required. Please try again.");
+            }
+        }
+    }
+
+    private LocalDate getDateValue(String input) {
+        while (true) {
+            System.out.println(input);
+            try {
+                String parsedInput = scanner.nextLine();
+                return LocalDate.parse(parsedInput, GenericUtils.dtf);
+            } catch (NumberFormatException ex) {
+                System.out.println("Invalid input: an integer is required. Please try again.");
+            }
+        }
+    }
 
     /** Manages all expense-related operations. */
     public static ExpenseManager expenseManager = new ExpenseManager();
@@ -35,7 +147,7 @@ public class ExpenseTrackerCLI {
 
     /**
      * The main entry point of the Expense Tracker CLI application.
-     * It initializes the REPL loop and handles user commands.
+     * It initializes the ExpenseTrackerCLI class and runs it.
      *
      * @param args command-line arguments (currently expects none).
      */
@@ -46,26 +158,8 @@ public class ExpenseTrackerCLI {
             System.exit(1);
         }
 
-        // TODO switch file system logic with DB logic.
-        // Testing DB connection.
-        Connection conn;
-        DatabaseManager.initDb();
-        try {
-            conn = DatabaseManager.getConnection();
-
-            Statement stmt = conn.createStatement();
-            stmt.execute("select * from cash_flows");
-
-            ResultSet rs = stmt.getResultSet();
-            System.out.println(rs.getInt("id"));
-            System.out.println(rs.getString("cf_type"));
-        } catch (SQLException ex) {
-            System.err.println("While opening DB connection: " + ex.getMessage());
-            System.exit(1);
-        }
-        DatabaseManager.closeConnection();
-        DatabaseManager.dropDb();
-        System.exit(0);
+        ExpenseTrackerCLI expenseTrackerCLI = new ExpenseTrackerCLI();
+        expenseTrackerCLI.run();
 
         boolean wasFileCreated;
         boolean needToPrintHelper = false;
@@ -91,7 +185,6 @@ public class ExpenseTrackerCLI {
         }
 
         // Main loop.
-        ReplUtils.welcomeUser();
         while (true) {
             Scanner scanner = new Scanner(System.in);
             needToPrintHelper = ReplUtils.askForInput(needToPrintHelper);
@@ -170,7 +263,6 @@ public class ExpenseTrackerCLI {
      * @throws AddException If the command is malformed or the addition fails.
      */
     public static void handleAddCommand(ArrayList<String> commands) throws AddException {
-        // TODO also add in file.
         TypeOfStatement typeOfStatement = GenericUtils.fetchTypeOfStatement(commands);
         if (typeOfStatement == TypeOfStatement.UNRECOGNIZED) {
             ReplUtils.handleWrongTypeOfStatement();

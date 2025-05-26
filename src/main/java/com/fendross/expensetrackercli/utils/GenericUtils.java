@@ -2,6 +2,7 @@ package com.fendross.expensetrackercli.utils;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class GenericUtils {
@@ -15,6 +16,7 @@ public class GenericUtils {
 
     // Format utils.
     public static DecimalFormat df = new DecimalFormat("#0.00");
+    public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     /**

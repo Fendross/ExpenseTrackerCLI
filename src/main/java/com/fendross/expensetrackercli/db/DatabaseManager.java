@@ -13,6 +13,7 @@ public class DatabaseManager {
         if (connection == null || connection.isClosed()) {
             connection = DriverManager.getConnection(DB_URL);
         }
+        connection.setAutoCommit(true);
         return connection;
     }
 
@@ -38,9 +39,6 @@ public class DatabaseManager {
                     "description TEXT" +
                     ");";
             stmt.execute(createTbCashFlow);
-
-            // TO BE REMOVED.
-            stmt.execute("INSERT INTO cash_flows VALUES(1, 'EXPENSE', 300, '2025-05-24', 'Miscellaneous', 'Night out')");
         } catch (SQLException ex) {
             System.err.println("Error during DB initialization: " + ex.getMessage());
         }
