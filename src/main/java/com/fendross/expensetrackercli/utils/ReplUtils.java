@@ -1,7 +1,6 @@
 package com.fendross.expensetrackercli.utils;
 
 import com.fendross.expensetrackercli.core.expense.ExpenseManager;
-import com.fendross.expensetrackercli.core.fs.FsManager;
 import com.fendross.expensetrackercli.core.income.IncomeManager;
 
 public class ReplUtils {

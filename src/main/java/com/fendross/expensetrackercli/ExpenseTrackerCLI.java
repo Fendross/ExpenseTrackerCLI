@@ -54,15 +54,17 @@ public class ExpenseTrackerCLI {
             conn = DatabaseManager.getConnection();
 
             Statement stmt = conn.createStatement();
-            stmt.execute("select * from tb_cash_flows");
-            
+            stmt.execute("select * from cash_flows");
+
             ResultSet rs = stmt.getResultSet();
             System.out.println(rs.getInt("id"));
             System.out.println(rs.getString("cf_type"));
         } catch (SQLException ex) {
             System.err.println("While opening DB connection: " + ex.getMessage());
+            System.exit(1);
         }
         DatabaseManager.closeConnection();
+        DatabaseManager.dropDb();
         System.exit(0);
 
         boolean wasFileCreated;

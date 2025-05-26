@@ -29,7 +29,7 @@ public class DatabaseManager {
     public static void initDb() {
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
             String createTbCashFlow =
-                    "CREATE TABLE IF NOT EXISTS tb_cash_flows (" +
+                    "CREATE TABLE IF NOT EXISTS cash_flows (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "cf_type TEXT, " +
                     "amount REAL NOT NULL, " +
@@ -40,9 +40,18 @@ public class DatabaseManager {
             stmt.execute(createTbCashFlow);
 
             // TO BE REMOVED.
-            stmt.execute("INSERT INTO tb_cash_flows VALUES(1, 'EXPENSE', 300, '2025-05-24', 'Miscellaneous', 'Night out')");
+            stmt.execute("INSERT INTO cash_flows VALUES(1, 'EXPENSE', 300, '2025-05-24', 'Miscellaneous', 'Night out')");
         } catch (SQLException ex) {
             System.err.println("Error during DB initialization: " + ex.getMessage());
+        }
+    }
+
+    public static void dropDb() {
+        try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
+            String dropTbCashFlow = "DROP TABLE IF EXISTS cash_flows";
+            stmt.execute(dropTbCashFlow);
+        } catch (SQLException ex) {
+            System.err.println("Error during DB drop: " + ex.getMessage());
         }
     }
 }

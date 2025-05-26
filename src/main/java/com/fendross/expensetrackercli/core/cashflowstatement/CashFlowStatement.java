@@ -2,46 +2,80 @@ package com.fendross.expensetrackercli.core.cashflowstatement;
 
 import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-public interface CashFlowStatement {
+public class CashFlowStatement {
+    // Class Fields.
+    private int id;
+    private TypeOfStatement cfType;
+    private double amount;
+    private LocalDate cfDate;
+    private String category;
+    private String description;
 
-    /**
-     * A CashFlowStatement consists of:
-     *  - Unique identifier (an integer)
-     *  - Type of statement (expense or income)
-     *  - Amount
-     *  - Date of statement
-     *  - Category of statement
-     *  - Subcategory of statement
-     *  - Description of statement
-     */
+    // New expenses.
+    public CashFlowStatement(TypeOfStatement cfType, double amount, LocalDate cfDate, String category, String description) {
+        this.cfType = cfType;
+        this.amount = amount;
+        this.cfDate = cfDate;
+        this.category = category;
+        this.description = description;
+    }
 
-    // Getters and Setters
-    TypeOfStatement getTypeOfStatement(); // Fixed type.
+    // To retrieve an expense from DB.
+    public CashFlowStatement(int id, TypeOfStatement cfType, double amount, LocalDate cfDate, String category, String description) {
+        this.id = id;
+        this.cfType = cfType;
+        this.amount = amount;
+        this.cfDate = cfDate;
+        this.category = category;
+        this.description = description;
+    }
+
 
     // ID.
-    int getId();
-    void setId(int id);
+    public int getId() {
+        return this.id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     // Amount.
-    double getAmount();
-    void setAmount(double amount);
+    public double getAmount() {
+        return this.amount;
+    }
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 
     // DateOfStatement.
-    Date getDateOfStatement();
-    void setDateOfStatement(Date dateOfStatement);
+    public LocalDate getCfDate() {
+        return this.cfDate;
+    }
+    public void setCfDate(LocalDate dateOfStatement) {
+        this.cfDate = dateOfStatement;
+    }
 
     // Category.
-    String getCategory();
-    void setCategory(String category);
-
-    // Subcategory.
-    String getSubcategory();
-    void setSubcategory(String subcategory);
+    public String getCategory() {
+        return this.category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     // Description.
-    String getDescription();
-    void setDescription(String description);
+    public String getDescription() {
+        return this.description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    @Override
+    public String toString() {
+        return String.format("Expense[id=%d, cfType='%s', amount=%.2f, date='%s', category='%s', description='%s']",
+                id, cfType, amount, cfDate, category, description);
+    }
 }

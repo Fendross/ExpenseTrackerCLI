@@ -1,6 +1,6 @@
 package com.fendross.expensetrackercli.core.expense;
 
-import com.fendross.expensetrackercli.core.cashflowstatement.CashFlowStatement;
+import com.fendross.expensetrackercli.core.cashflowstatement.CashFlow;
 
 import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 import static com.fendross.expensetrackercli.utils.GenericUtils.df;
 import static com.fendross.expensetrackercli.utils.GenericUtils.sdf;
 
-public class Expense implements CashFlowStatement {
+public class Expense implements CashFlow {
     // Class Fields.
     int id;
     double amount;
