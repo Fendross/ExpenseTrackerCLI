@@ -1,4 +1,4 @@
-package com.fendross.expensetrackercli.core.cashflowstatement;
+package com.fendross.expensetrackercli.cashflowstatement;
 
 import com.fendross.expensetrackercli.db.DatabaseManager;
 import com.fendross.expensetrackercli.utils.GenericUtils;
@@ -6,6 +6,8 @@ import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CashFlowStatementDAO {
     // SQL Statements.
@@ -13,6 +15,10 @@ public class CashFlowStatementDAO {
             "INSERT INTO cash_flows (cf_type, amount, cf_date, category, description) VALUES(?, ?, ?, ?, ?);";
     private static final String DELETE_CASH_FLOW_STATEMENT =
             "DELETE FROM cash_flows WHERE id = ?;";
+    private static final String SELECT_CASH_FLOW_STATEMENT_FROM_ID =
+            "SELECT * FROM cash_flows WHERE id = ?;";
+    private static final String SELECT_ALL_CASH_FLOW_STATEMENTS =
+            "SELECT * FROM cash_flows ORDER BY cf_date DESC;";
 
     // TODO add manipulation methods (insert, delete, update).
     // TODO also add a way to extract a CashFlowExpense from the DB.
@@ -54,6 +60,23 @@ public class CashFlowStatementDAO {
         return exitCode;
     }
 
+    public List<CashFlowStatement> getAllCashFlowStatements() {
+        List<CashFlowStatement> cashFlowStatements = new ArrayList<>();
+        try (Connection conn = DatabaseManager.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(SELECT_ALL_CASH_FLOW_STATEMENTS)) {
+
+            while (rs.next()) {
+                cashFlowStatements.add(getCashFlowStatementFromResultSet(rs));
+            }
+
+
+        } catch (SQLException ex) {
+            System.err.println("Error while selecting all statements: " + ex.getMessage());
+        }
+        return cashFlowStatements;
+    }
+
     /**
      * Deletes a CashFlowStatement from the cash_flows table.
      *
@@ -70,10 +93,12 @@ public class CashFlowStatementDAO {
 
             // Execute query.
             rowsAffected = pstmt.executeUpdate();
+
+            return (rowsAffected > 0) ? 0 : 1;
         } catch (SQLException ex) {
-            System.err.println("Error while inserting: " + ex.getMessage());
+            System.err.println("Error while deleting: " + ex.getMessage());
         }
-        return (rowsAffected > 0) ? 0 : 1;
+        return 1;
     }
 
     /**
@@ -84,7 +109,7 @@ public class CashFlowStatementDAO {
      */
     public CashFlowStatement getCashFlowStatementById(int id) {
         try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(DELETE_CASH_FLOW_STATEMENT)) {
+             PreparedStatement pstmt = conn.prepareStatement(SELECT_CASH_FLOW_STATEMENT_FROM_ID)) {
 
             // Set query values.
             pstmt.setInt(1, id);

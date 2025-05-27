@@ -1,4 +1,4 @@
-package com.fendross.expensetrackercli.core.cashflowstatement;
+package com.fendross.expensetrackercli.cashflowstatement;
 
 import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 

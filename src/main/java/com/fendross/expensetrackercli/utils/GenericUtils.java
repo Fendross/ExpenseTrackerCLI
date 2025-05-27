@@ -65,9 +65,9 @@ public class GenericUtils {
     }
 
     /**
-     * Determines the type of statement (income or expense) based on the user command.
+     * Determines the type of statement (income or expense) based on the string extracted from DB.
      *
-     * @param commands A list of command-line arguments where the second element specifies the type.
+     * @param extractedCfType A string from cash_flows representing a cfType.
      * @return A TypeOfStatement value based on the input.
      * @throws ArrayIndexOutOfBoundsException if the command list does not contain enough elements.
      */

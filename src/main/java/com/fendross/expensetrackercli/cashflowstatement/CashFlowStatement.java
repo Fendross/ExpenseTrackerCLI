@@ -1,4 +1,4 @@
-package com.fendross.expensetrackercli.core.cashflowstatement;
+package com.fendross.expensetrackercli.cashflowstatement;
 
 import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 
@@ -83,7 +83,7 @@ public class CashFlowStatement {
 
     @Override
     public String toString() {
-        return String.format("Expense[id=%d, cfType='%s', amount=%.2f, date='%s', category='%s', description='%s']",
-                id, cfType, amount, cfDate, category, description);
+        return String.format("%s[id=%d, cfType='%s', amount=%.2f, date='%s', category='%s', description='%s']",
+                cfType, id, cfType, amount, cfDate, category, description);
     }
 }
