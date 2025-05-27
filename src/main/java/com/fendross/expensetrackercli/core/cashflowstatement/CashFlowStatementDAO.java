@@ -1,8 +1,11 @@
 package com.fendross.expensetrackercli.core.cashflowstatement;
 
 import com.fendross.expensetrackercli.db.DatabaseManager;
+import com.fendross.expensetrackercli.utils.GenericUtils;
+import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 public class CashFlowStatementDAO {
     // SQL Statements.
@@ -13,6 +16,13 @@ public class CashFlowStatementDAO {
 
     // TODO add manipulation methods (insert, delete, update).
     // TODO also add a way to extract a CashFlowExpense from the DB.
+
+    /**
+     * Deletes a CashFlowStatement from the cash_flows table.
+     *
+     * @param cfs The cash flow statement the user wishes to insert
+     * @return 0 if insertion was successful, 1 otherwise.
+     */
     public int addCashFlowStatement(CashFlowStatement cfs) {
         int exitCode = 1;
         try (Connection conn = DatabaseManager.getConnection();
@@ -42,5 +52,66 @@ public class CashFlowStatementDAO {
             System.err.println("Error while inserting: " + ex.getMessage());
         }
         return exitCode;
+    }
+
+    /**
+     * Deletes a CashFlowStatement from the cash_flows table.
+     *
+     * @param id The id of the cash flow statement the user wishes to delete.
+     * @return 0 if deletion was successful, 1 otherwise.
+     */
+    public int deleteCashFlowStatement(int id) {
+        int rowsAffected = 0;
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(DELETE_CASH_FLOW_STATEMENT)) {
+
+            // Set query values.
+            pstmt.setInt(1, id);
+
+            // Execute query.
+            rowsAffected = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println("Error while inserting: " + ex.getMessage());
+        }
+        return (rowsAffected > 0) ? 0 : 1;
+    }
+
+    /**
+     * Gets a cash flow statement from cash_flows by id.
+     *
+     * @param id Unique identifier of cash flow statement.
+     * @return The extracted CashFlowStatement.
+     */
+    public CashFlowStatement getCashFlowStatementById(int id) {
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(DELETE_CASH_FLOW_STATEMENT)) {
+
+            // Set query values.
+            pstmt.setInt(1, id);
+
+            // Execute query and extract the CashFlowStatement.
+            try (ResultSet rs = pstmt.executeQuery();) {
+                if (rs.next()) {
+                    return getCashFlowStatementFromResultSet(rs);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error while inserting: " + ex.getMessage());
+        }
+        return null;
+    }
+
+    public CashFlowStatement getCashFlowStatementFromResultSet(ResultSet rs) throws SQLException {
+        TypeOfStatement cfType = GenericUtils.getTypeOfStatement(rs.getString("cf_type"));
+        LocalDate cfDate = LocalDate.parse(rs.getString("cf_date"));
+
+        return new CashFlowStatement(
+                rs.getInt("id"),
+                cfType,
+                rs.getDouble("amount"),
+                cfDate,
+                rs.getString("category"),
+                rs.getString("description")
+        );
     }
 }

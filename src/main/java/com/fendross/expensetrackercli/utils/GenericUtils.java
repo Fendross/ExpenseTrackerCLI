@@ -65,6 +65,24 @@ public class GenericUtils {
     }
 
     /**
+     * Determines the type of statement (income or expense) based on the user command.
+     *
+     * @param commands A list of command-line arguments where the second element specifies the type.
+     * @return A TypeOfStatement value based on the input.
+     * @throws ArrayIndexOutOfBoundsException if the command list does not contain enough elements.
+     */
+    public static TypeOfStatement getTypeOfStatement(String extractedCfType) throws ArrayIndexOutOfBoundsException {
+        String strTypeOfStatement = extractedCfType.toUpperCase();
+        if (strTypeOfStatement.equals(TypeOfStatement.EXPENSE.name())) {
+            return TypeOfStatement.EXPENSE;
+        } else if (strTypeOfStatement.equals(TypeOfStatement.INCOME.name())) {
+            return TypeOfStatement.INCOME;
+        } else {
+            return TypeOfStatement.UNRECOGNIZED;
+        }
+    }
+
+    /**
      * @param check Input string from user.
      * @return true if user wants to quit, false otherwise.
      */

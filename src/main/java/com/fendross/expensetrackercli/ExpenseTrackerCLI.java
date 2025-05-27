@@ -78,6 +78,7 @@ public class ExpenseTrackerCLI {
             );
             try {
                 cfsDAO.addCashFlowStatement(cfs);
+                //cfsDAO.deleteCashFlowStatement(1);
 
                 conn = DatabaseManager.getConnection();
 
