@@ -42,6 +42,9 @@ public class ExpenseTrackerCLI {
                 case 3:
                     deleteItem();
                     break;
+                case 4:
+                    clearAllCashFlows();
+                    break;
                 case 0:
                     running = false;
                     ReplUtils.sayGoodbye();
@@ -80,7 +83,7 @@ public class ExpenseTrackerCLI {
         double amount = getDoubleValue("Enter the nominal amount: ");
 
         // cfDate.
-        LocalDate cfDate = getDateValue("Enter the value date: ");
+        LocalDate cfDate = getDateValue("Enter the value date ('yyyy-MM-dd', e.g. 2025-01-13): ");
 
         // category.
         System.out.println("Enter the category: ");
@@ -112,7 +115,7 @@ public class ExpenseTrackerCLI {
             System.out.println("Statement to be deleted: " + cfsToDelete + "\n");
             System.out.println("Are you sure you want to proceed with the item deletion? (y/n)");
             String validation = scanner.nextLine().trim();
-            if (validation.toLowerCase().equals("y")) {
+            if (validation.equalsIgnoreCase("y")) {
                 int result = cfsDAO.deleteCashFlowStatement(id);
                 if (result != 0) {
                     System.out.println("The item could not be deleted properly.");
@@ -120,6 +123,18 @@ public class ExpenseTrackerCLI {
             }
             System.out.println("Correctly deleted item with id: " + id + ".");
         }
+    }
+
+    public void clearAllCashFlows() {
+        System.out.println("Are you sure you want to clear all cash flow statements? (y/n)");
+        String validation = scanner.nextLine().trim();
+        if (validation.equalsIgnoreCase("y")) {
+            int result = cfsDAO.truncateCashFlowTable();
+            if (result != 0) {
+                System.out.println("Items could not be cleared properly.");
+            }
+        }
+        System.out.println("Correctly cleared database tables.");
     }
 
     private int getIntValue(String input) {

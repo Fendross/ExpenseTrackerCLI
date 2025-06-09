@@ -2,7 +2,6 @@ package com.fendross.expensetrackercli.cashflowstatement;
 
 import com.fendross.expensetrackercli.db.DatabaseManager;
 import com.fendross.expensetrackercli.utils.GenericUtils;
-import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -19,12 +18,12 @@ public class CashFlowStatementDAO {
             "SELECT * FROM cash_flows WHERE id = ?;";
     private static final String SELECT_ALL_CASH_FLOW_STATEMENTS =
             "SELECT * FROM cash_flows ORDER BY cf_date DESC;";
+    private static final String TRUNCATE_CASH_FLOWS_TABLE =
+            "DELETE FROM cash_flows;";
 
-    // TODO add manipulation methods (insert, delete, update).
-    // TODO also add a way to extract a CashFlowExpense from the DB.
 
     /**
-     * Deletes a CashFlowStatement from the cash_flows table.
+     * Inserts a CashFlowStatement from the cash_flows table.
      *
      * @param cfs The cash flow statement the user wishes to insert
      * @return 0 if insertion was successful, 1 otherwise.
@@ -102,6 +101,31 @@ public class CashFlowStatementDAO {
     }
 
     /**
+     * Truncates the cash_flows table.
+     *
+     * @return 0 if truncation was successful or if it didn't delete any rows, 1 otherwise.
+     */
+    public int truncateCashFlowTable() {
+        int rowsAffected = 0;
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(TRUNCATE_CASH_FLOWS_TABLE)) {
+
+            // Execute query.
+            rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected >= 0) {
+                if (rowsAffected == 0) {
+                    System.out.println("WARN: No rows have been deleted.");
+                }
+                return 0;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error while deleting: " + ex.getMessage());
+        }
+        return 1;
+    }
+
+    /**
      * Gets a cash flow statement from cash_flows by id.
      *
      * @param id Unique identifier of cash flow statement.
@@ -127,14 +151,11 @@ public class CashFlowStatementDAO {
     }
 
     public CashFlowStatement getCashFlowStatementFromResultSet(ResultSet rs) throws SQLException {
-        TypeOfStatement cfType = GenericUtils.getTypeOfStatement(rs.getString("cf_type"));
-        LocalDate cfDate = LocalDate.parse(rs.getString("cf_date"));
-
         return new CashFlowStatement(
                 rs.getInt("id"),
-                cfType,
+                GenericUtils.getTypeOfStatement(rs.getString("cf_type")),
                 rs.getDouble("amount"),
-                cfDate,
+                LocalDate.parse(rs.getString("cf_date")),
                 rs.getString("category"),
                 rs.getString("description")
         );

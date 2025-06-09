@@ -10,8 +10,6 @@ public class GenericUtils {
     // Shared variables.
     public static int id = 0;
     public static boolean hasBeenInitialized = false;
-    public static int numOfMandatoryAddParams = 4;
-    public static int numOfMaximumAddParams = 6;
     public static final String negativeResponses = "n,no,false,quit,del,delete";
 
     // Format utils.
@@ -26,14 +24,6 @@ public class GenericUtils {
      */
     public static String getCurrency() {
         return "EUR";
-    }
-
-    public static int getNumOfMandatoryAddParams() {
-        return numOfMandatoryAddParams;
-    }
-
-    public static int getNumOfMaximumAddParams() {
-        return numOfMaximumAddParams;
     }
 
     public enum TypeOfStatement {
