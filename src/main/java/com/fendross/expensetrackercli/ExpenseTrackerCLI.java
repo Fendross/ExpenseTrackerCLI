@@ -43,6 +43,9 @@ public class ExpenseTrackerCLI {
                     deleteItem();
                     break;
                 case 4:
+                    viewCashFlowReport();
+                    break;
+                case 5:
                     clearAllCashFlows();
                     break;
                 case 0:
@@ -123,6 +126,18 @@ public class ExpenseTrackerCLI {
             }
             System.out.println("Correctly deleted item with id: " + id + ".");
         }
+    }
+
+    public void viewCashFlowReport() {
+        double totalAmountExpenses = cfsDAO.getTotalAmountOfCfType("EXPENSE");
+        double totalAmountIncomes = cfsDAO.getTotalAmountOfCfType("INCOME");
+        double netCashFlow = totalAmountIncomes - totalAmountExpenses;
+        String reportCurrency = GenericUtils.getCurrency();
+
+        System.out.println("== Cash Flow Report ==\n");
+        System.out.println("= Cash Flow from Incomes: " + GenericUtils.df.format(totalAmountIncomes) + " " + reportCurrency + " =\n");
+        System.out.println("= Cash Flow from Expenses: (" + GenericUtils.df.format(totalAmountExpenses) + " " + reportCurrency + ") =\n");
+        System.out.println("= Net Cash Flow: " + GenericUtils.df.format(netCashFlow) + " " + reportCurrency + " =\n");
     }
 
     public void clearAllCashFlows() {

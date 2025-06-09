@@ -20,13 +20,15 @@ public class CashFlowStatementDAO {
             "SELECT * FROM cash_flows ORDER BY cf_date DESC;";
     private static final String TRUNCATE_CASH_FLOWS_TABLE =
             "DELETE FROM cash_flows;";
+    private static final String GET_TOTAL_AMOUNT_OF_CF_TYPE =
+            "SELECT SUM(amount) FROM cash_flows WHERE cf_type = ?;";
 
 
     /**
      * Inserts a CashFlowStatement from the cash_flows table.
      *
-     * @param cfs The cash flow statement the user wishes to insert
-     * @return 0 if insertion was successful, 1 otherwise.
+     * @param cfs CashFlowStatement, the cash flow statement the user wishes to insert
+     * @return int, 0 if insertion was successful, 1 otherwise.
      */
     public int addCashFlowStatement(CashFlowStatement cfs) {
         int exitCode = 1;
@@ -79,8 +81,8 @@ public class CashFlowStatementDAO {
     /**
      * Deletes a CashFlowStatement from the cash_flows table.
      *
-     * @param id The id of the cash flow statement the user wishes to delete.
-     * @return 0 if deletion was successful, 1 otherwise.
+     * @param id int, the id of the cash flow statement the user wishes to delete.
+     * @return int, 0 if deletion was successful, 1 otherwise.
      */
     public int deleteCashFlowStatement(int id) {
         int rowsAffected = 0;
@@ -103,7 +105,7 @@ public class CashFlowStatementDAO {
     /**
      * Truncates the cash_flows table.
      *
-     * @return 0 if truncation was successful or if it didn't delete any rows, 1 otherwise.
+     * @return int, 0 if truncation was successful or if it didn't delete any rows, 1 otherwise.
      */
     public int truncateCashFlowTable() {
         int rowsAffected = 0;
@@ -126,9 +128,35 @@ public class CashFlowStatementDAO {
     }
 
     /**
+     * Retrieves the total amount, based on what Cash Flow type it's passed.
+     *
+     * @param cfType String, the type of cash flow to be queried.
+     * @return double, the sum of the amounts in the table.
+     */
+    public double getTotalAmountOfCfType(String cfType) {
+        double totalAmount = 0;
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(GET_TOTAL_AMOUNT_OF_CF_TYPE)) {
+
+            // Set query values.
+            pstmt.setString(1, cfType);
+
+            // Execute query.
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    totalAmount = rs.getDouble(1);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error while selecting: " + ex.getMessage());
+        }
+        return totalAmount;
+    }
+
+    /**
      * Gets a cash flow statement from cash_flows by id.
      *
-     * @param id Unique identifier of cash flow statement.
+     * @param id int, unique identifier of cash flow statement.
      * @return The extracted CashFlowStatement.
      */
     public CashFlowStatement getCashFlowStatementById(int id) {
@@ -139,7 +167,7 @@ public class CashFlowStatementDAO {
             pstmt.setInt(1, id);
 
             // Execute query and extract the CashFlowStatement.
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     return getCashFlowStatementFromResultSet(rs);
                 }
