@@ -1,6 +1,7 @@
-package com.fendross.expensetrackercli.cashflowstatement;
+package com.fendross.expensetrackercli.dao;
 
 import com.fendross.expensetrackercli.db.DatabaseManager;
+import com.fendross.expensetrackercli.model.CashFlowStatement;
 import com.fendross.expensetrackercli.utils.GenericUtils;
 
 import java.sql.*;

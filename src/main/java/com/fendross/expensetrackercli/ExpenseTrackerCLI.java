@@ -5,14 +5,18 @@ import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
 
-import com.fendross.expensetrackercli.cashflowstatement.CashFlowStatement;
-import com.fendross.expensetrackercli.cashflowstatement.CashFlowStatementDAO;
+import com.fendross.expensetrackercli.model.CashFlowStatement;
+import com.fendross.expensetrackercli.dao.CashFlowStatementDAO;
 
 import com.fendross.expensetrackercli.db.DatabaseManager;
 
 import com.fendross.expensetrackercli.utils.GenericUtils;
 import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 import com.fendross.expensetrackercli.utils.ReplUtils;
+
+// TODO Implementation ideas
+// - add currency conversion, if someone wants to print the cash flow report in another currency
+// - do not use the deciamlformat class to convert number, it needs to be native in the db. Possible with a couple of triggers, else keep using application-level formatting
 
 public class ExpenseTrackerCLI {
     private final CashFlowStatementDAO cfsDAO;
@@ -134,22 +138,24 @@ public class ExpenseTrackerCLI {
         double netCashFlow = totalAmountIncomes - totalAmountExpenses;
         String reportCurrency = GenericUtils.getCurrency();
 
-        System.out.println("== Cash Flow Report ==\n");
-        System.out.println("= Cash Flow from Incomes: " + GenericUtils.df.format(totalAmountIncomes) + " " + reportCurrency + " =\n");
+        System.out.println("\n== Cash Flow Report ==");
+        System.out.println("= Cash Flow from Incomes: " + GenericUtils.df.format(totalAmountIncomes) + " " + reportCurrency + " =");
         System.out.println("= Cash Flow from Expenses: (" + GenericUtils.df.format(totalAmountExpenses) + " " + reportCurrency + ") =\n");
         System.out.println("= Net Cash Flow: " + GenericUtils.df.format(netCashFlow) + " " + reportCurrency + " =\n");
     }
 
     public void clearAllCashFlows() {
         System.out.println("Are you sure you want to clear all cash flow statements? (y/n)");
-        String validation = scanner.nextLine().trim();
-        if (validation.equalsIgnoreCase("y")) {
+        String answer = scanner.nextLine().trim();
+        if (answer.equalsIgnoreCase("y")) {
             int result = cfsDAO.truncateCashFlowTable();
             if (result != 0) {
                 System.out.println("Items could not be cleared properly.");
+            } else {
+                System.out.println("Correctly cleared database tables.");
             }
         }
-        System.out.println("Correctly cleared database tables.");
+        System.out.println("Chose not to proceed.");
     }
 
     private int getIntValue(String input) {
