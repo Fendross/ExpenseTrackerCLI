@@ -1,7 +1,8 @@
 # _ExpenseTrackerCLI_
 
 > [!NOTE]
-> This is a WIP project. Its purpose would be that to manage one's finances without having to fiddle around with an Excel.
+> This is a WIP project. Its purpose would be to manage one's finances without having to fiddle around with an Excel.
+> Also, this would serve as an entry point to develop an easy-to-use mobile application or web application to manage one's finances on the go.
 
 ## Overview
 
@@ -15,11 +16,11 @@ Preliminary steps:
 1. Clone the repo into your own system
 2. Open up the project in a Java IDE (IntelliJ is highly recommended)
 
-To achieve a Maven build:
+To achieve a Maven build/run:
 1. Configure a standard Maven build, using as run commands `clean install` and make sure the build succeeds
 2. Execute in a terminal, in the root directory of the project: `./run_expense_tracker_cli.sh`
 
-To achieve an IntelliJ build:
+To achieve an IntelliJ build/run:
 1. Run `ExpenseTrackerCLI` with no arguments
 
 ## How to use
