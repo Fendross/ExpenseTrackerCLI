@@ -12,6 +12,8 @@ public class GenericUtils {
     public static boolean hasBeenInitialized = false;
     public static final String negativeResponses = "n,no,false,quit,del,delete";
     public static String currency = "EUR";
+
+    // List composed thanks to: https://www.iban.com/currency-codes.
     public static final String CURRENCY_CODES = "AED;AFN;ALL;AMD;ANG;AOA;ARS;AUD;AWG;AZN;BAM;BBD;BDT;BGN;BHD;BIF;BMD;BND;BOB;BOV;BRL;BSD;BTN;BWP;BYN;BZD;CAD;CDF;CHE;CHF;CHW;CLF;CLP;CNY;COP;COU;CRC;CUC;CUP;CVE;CZK;DJF;DKK;DOP;DZD;EGP;ERN;ETB;EUR;FJD;FKP;GBP;GEL;GHS;GIP;GMD;GNF;GTQ;GYD;HKD;HNL;HRK;HTG;HUF;IDR;ILS;INR;IQD;IRR;ISK;JMD;JOD;JPY;KES;KGS;KHR;KMF;KPW;KRW;KWD;KYD;KZT;LAK;LBP;LKR;LRD;LSL;LYD;MAD;MDL;MGA;MKD;MMK;MNT;MOP;MRU;MUR;MVR;MWK;MXN;MXV;MYR;MZN;NAD;NGN;NIO;NOK;NPR;NZD;OMR;PAB;PEN;PGK;PHP;PKR;PLN;PYG;QAR;RON;RSD;RUB;RWF;SAR;SBD;SCR;SDG;SEK;SGD;SHP;SLE;SOS;SRD;SSP;STN;SVC;SYP;SZL;THB;TJS;TMT;TND;TOP;TRY;TTD;TVD;TWD;TZS;UAH;UGX;USD;USN;UYI;UYU;UZS;VED;VEF;VND;VUV;WST;XAF;XCD;XDR;XOF;XPF;XSU;XUA;YER;ZAR;ZMW;ZWL";
 
     // Format utils.
@@ -31,14 +33,12 @@ public class GenericUtils {
     public static void setCurrency(String _currency) { currency = _currency; }
 
     public static boolean currencyValidator(String currencyToCheck) {
-        boolean validationRes = false;
         for (String cur: CURRENCY_CODES.split(";")) {
             if (cur.equals(currencyToCheck)) {
-                validationRes = true;
-                break;
+                return true;
             }
         }
-        return validationRes;
+        return false;
     }
 
     public enum TypeOfStatement {

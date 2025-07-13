@@ -27,6 +27,11 @@ To achieve an IntelliJ build:
 After launching the CLI, interact with the application using the commands listed in the terminal.
 > [!TIP]
 > A menu will be displayed. Simply follow its instructions.
+ 
+## Future TODOs
+- [ ] Implement currency conversion (fetching exchange rates) if user chooses to change system currency with command '6'.
+- [ ] Move currency treatment in a dedicated table.
+- [ ] Add a new type of CFS, DIVIDEND, to account for that as well.
 
 ## References
 
