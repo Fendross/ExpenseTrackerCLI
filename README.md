@@ -34,7 +34,8 @@ After launching the CLI, interact with the application using the commands listed
 - [ ] Move currency treatment in a dedicated table.
 - [ ] Add a new type of CFS, DIVIDEND, to account for that as well.
 
-## References
+## References and Resources
 
 - [Cash Flow Statement definition](https://en.wikipedia.org/wiki/Cash_flow_statement)
 - [Build a simple Expense Tracker CLI](https://roadmap.sh/projects/expense-tracker)
+- [Currency codes list and description](https://www.iban.com/currency-codes)
