@@ -12,6 +12,7 @@ public class ReplUtils {
         System.out.println("3 - Delete a Cash Flow Statement.");
         System.out.println("4 - Visualize a Cash Flow Report.");
         System.out.println("5 - Clear all Cash Flow Statements.");
+        System.out.println("6 - Change System Currency.");
         System.out.println("0 - Exit the program.");
         System.out.println("===================================================================");
     }

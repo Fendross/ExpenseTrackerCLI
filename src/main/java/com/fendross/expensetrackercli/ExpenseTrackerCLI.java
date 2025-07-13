@@ -52,6 +52,9 @@ public class ExpenseTrackerCLI {
                 case 5:
                     clearAllCashFlows();
                     break;
+                case 6:
+                    updateSystemCurrency();
+                    break;
                 case 0:
                     running = false;
                     ReplUtils.sayGoodbye();
@@ -156,6 +159,20 @@ public class ExpenseTrackerCLI {
             }
         }
         System.out.println("Chose not to proceed.");
+    }
+
+    public void updateSystemCurrency() {
+        System.out.println("Please note that currencies are valid only if you insert their 3-letter representation (e.g. 'EUR').");
+        System.out.println("Now, please enter the currency you want to switch to: ");
+        String userInputCurrency = scanner.nextLine();
+
+        String upperCaseCurrency = userInputCurrency.toUpperCase();
+        if (upperCaseCurrency.length() == 3 && GenericUtils.currencyValidator(upperCaseCurrency)) {
+            GenericUtils.setCurrency(upperCaseCurrency.toUpperCase());
+            System.out.println("Correctly updated system currency to " + upperCaseCurrency + ".");
+        } else {
+            System.out.println("Currency was not set correctly, please check your input.");
+        }
     }
 
     private int getIntValue(String input) {
