@@ -163,6 +163,7 @@ public class ExpenseTrackerCLI {
 
     public void updateSystemCurrency() {
         System.out.println("Please note that currencies are valid only if you insert their 3-letter representation (e.g. 'EUR').");
+        System.out.println("The default currency is currently set to EUR.\n");
         System.out.println("Now, please enter the currency you want to switch to: ");
         String userInputCurrency = scanner.nextLine();
 
