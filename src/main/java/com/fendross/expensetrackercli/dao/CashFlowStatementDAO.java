@@ -129,7 +129,7 @@ public class CashFlowStatementDAO {
     }
 
     /**
-     * Retrieves the total amount, based on what Cash Flow type it's passed.
+     * Retrieves the total amount, based on what Cash Flow type it has been passed.
      *
      * @param cfType String, the type of cash flow to be queried.
      * @return double, the sum of the amounts in the table.

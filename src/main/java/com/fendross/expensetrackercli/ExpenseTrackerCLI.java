@@ -14,9 +14,9 @@ import com.fendross.expensetrackercli.utils.GenericUtils;
 import com.fendross.expensetrackercli.utils.GenericUtils.TypeOfStatement;
 import com.fendross.expensetrackercli.utils.ReplUtils;
 
-// TODO Implementation ideas
-// - add currency conversion, if someone wants to print the cash flow report in another currency
-// - do not use the deciamlformat class to convert number, it needs to be native in the db. Possible with a couple of triggers, else keep using application-level formatting
+// TODO Implementation ideas.
+// - add currency conversion, if someone wants to print the cash flow report in another currency.
+// - done enough here. Might be time to switch to a mobile/webapp version.
 
 public class ExpenseTrackerCLI {
     private final CashFlowStatementDAO cfsDAO;
@@ -172,7 +172,7 @@ public class ExpenseTrackerCLI {
             GenericUtils.setCurrency(upperCaseCurrency.toUpperCase());
             System.out.println("Correctly updated system currency to " + upperCaseCurrency + ".");
         } else {
-            System.out.println("Currency was not set correctly, please check your input.");
+            System.out.println("Currency was not set correctly, please check your input and try again.");
         }
     }
 
